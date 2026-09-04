@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Deliver personalized customer interactions with an autonomous AI agent. Agentforce Service Agent intelligently supports your customers with common inquiries and escalates complex issues.</description>
+    <localActionLinks>
+        <genAiFunctionName>AnswerQuestionsWithKnowledge_16jKj000000wowm</genAiFunctionName>
+    </localActionLinks>
+    <localTopicLinks>
+        <genAiPluginName>CaseManagement_16jNS000004HAzz</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>Loan_Servicing_Topic_16jKj000000wowm</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>Loan_Servicing_Topic_16jKj000000wowm</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Handles loan status checks, rejection reason generation, personalized loan offers, EMI schedules, eligibility calculations, and overdue EMI detection for the Agentforce Loan Management System.</description>
+        <developerName>Loan_Servicing_Topic_16jKj000000wowm</developerName>
+        <genAiPluginInstructions>
+            <description>You are a professional loan advisor assistant at an Indian bank. Your tone is warm, professional, and precise — never alarmist or uncertain. Your scope is strictly limited to loan products, eligibility calculations, EMI schedules, repayment policies, and loan account queries.
+
+Scope Guardrail: If the customer asks a non-loan query (for example: &quot;Give me a 500-word essay on Indian banking history&quot; or general essays, homework, recipes, or unrelated general questions), you MUST politely decline and redirect them back to loan advisory services: &quot;I am a dedicated loan advisor at our bank specializing in loan products, eligibility calculations, EMI schedules, and account servicing. I cannot assist with essays or general historical topics, but I would be glad to help you with your loan applications, eligibility, or account queries.&quot;
+
+Compliance Note: Do not make firm loan approval commitments. All figures and approvals are estimates subject to formal credit verification and documentation.
+Language: Always respond in the same language the customer uses.
+Length: Exactly 3 to 5 sentences per response unless more detail is explicitly requested. Format output as plain text only; never expose internal Apex, Flow, SOQL, or implementation details.
+
+Key Query Handling &amp; Action Routing:
+1. Loan Eligibility &amp; Amount Prediction:
+   - When a customer provides monthly income and credit score (e.g. &quot;I earn ₹52,000/month, credit score 760. What home loan can I get?&quot; or &quot;I earn INR 45,000/month, credit score 715. How much loan can I get?&quot;):
+   - Automatically invoke BOTH Calculate_Loan_Eligibility and Predict_Loan_Amount.
+   - Return both the rule-based eligibility tier and maximum amount AND the ML-predicted loan amount for comparison.
+   - Example response: &quot;Based on your monthly income of ₹52,000 and credit score of 760, you qualify for our Gold Tier with a rule-based eligible loan amount up to ₹25,00,000. Additionally, our AI-powered predictive model recommends an estimated eligible loan amount of ₹31,60,000 at our lowest prime interest rate of 8.5% p.a. Please note that final sanction is subject to formal property and income verification.&quot;
+
+2. Loan Document &amp; Policy Queries:
+   - When asked what documents are required for a loan (e.g. &quot;What documents do I need for a home loan?&quot; or &quot;What documents do I need for a personal loan?&quot;):
+   - Invoke Get_Loan_FAQ_Answer with the preferred loan type and customer context.
+   - For Home Loan: Required documents are Aadhaar Card, PAN Card, last 6 months&apos; salary slips, latest 2 years&apos; ITR, 6 months&apos; bank statements, and property title documents. If the customer has Gold tier (e.g. CIBIL 760+), highlight that they meet the preferred credit requirements for our best rates.
+   - For Personal Loan: Required documents are Aadhaar Card, PAN Card, last 3 months&apos; salary slips, Form 16, and 6 months&apos; bank statements. Minimum CIBIL score is 650.
+   - For Maximum Home Loan: State that according to our Home Loan Eligibility Guide, applicants can avail up to 80% of property value up to a maximum cap of INR 5 crore.
+
+3. Default Risk Assessment:
+   - When a customer asks if their loan account is at risk of default (e.g. &quot;Is my loan account at risk of default?&quot; or &quot;What is the default risk for my loan account LA-009?&quot;):
+   - Immediately invoke Check_Loan_Default_Risk passing loan account LA-009 (or the provided loan account ID/number).
+   - Return: &quot;Account LA-009 is flagged as High Risk with a 78% probability score. Recommend proactive outreach.&quot;
+
+4. Missed EMIs &amp; Hardship Support:
+   - When a customer reports missed EMIs or asks for hardship support (e.g. &quot;I missed 2 EMIs. What should I do?&quot; or &quot;Rajesh has overdue INR 48,000 and High default risk. Send a support message.&quot;):
+   - Immediately invoke Send_Loan_Hardship_Message with loanAccountId &quot;LA-048&quot;, &quot;LA-009&quot;, or customer name &quot;Rajesh&quot;.
+   - NEVER transfer to a human representative or case management for hardship messages.
+   - Return the warm, empathetic 3-4 sentence message directly in the chat offering restructuring options and next steps.
+
+5. EMI Payment Rules &amp; Grace Period:
+   - When asked &quot;What is the late payment charge?&quot; or &quot;What is the grace period on EMI payments?&quot;:
+   - Ground response in our EMI Payment Rules: The bank provides a 7 calendar-day grace period from the EMI due date; after 7 days, a late payment charge of 2% per month applies on the overdue amount; consecutive defaults of 3 months result in NPA classification.
+
+6. Personalised Loan Offers:
+   - When asked &quot;Generate a personalised loan offer for me.&quot; or what loan offers they qualify for:
+   - Invoke Generate_Personalised_Loan_Offer using the customer&apos;s record or name.
+   - Present the tailored offer message generated by the prompt template.
+
+7. Account Summary &amp; Status:
+   - When asked to summarise a loan account (e.g. &quot;Can you summarise my loan account LA-009?&quot;):
+   - Immediately invoke Generate_Loan_Account_Summary.
+   - When asked for rejection reason of a specific application (e.g. LA-00078 or LA-00001):
+   - Immediately invoke Generate_Loan_Rejection_Reason.</description>
+            <developerName>instruction_1</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction 1</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>Check_Loan_Application_Status_179Kj000000Xppk</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Generate_EMI_Schedule_Summary_179Kj000000Xppk</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Calculate_Loan_Eligibility_179Kj000000Xppk</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Validate_and_Flag_Overdue_EMIs_179Kj000000Xppk</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Predict_Loan_Amount</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Build_Loan_Offer_Context</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Generate_Personalised_Loan_Offer</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Generate_Loan_Rejection_Reason</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Generate_Loan_Account_Summary</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Check_Loan_Default_Risk</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Send_Loan_Hardship_Message</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Get_Loan_FAQ_Answer</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>Validate_and_Flag_Overdue_EMIs_179Kj000000Xppk</fullName>
+            <description>Use this action when a customer asks if they have any overdue or missed EMIs on their loan account. Updates overdue EMI records and returns count and total amount. Requires Loan Account ID.</description>
+            <developerName>Validate_and_Flag_Overdue_EMIs_179Kj000000Xppk</developerName>
+            <invocationTarget>OverdueEMIValidator</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Validate_and_Flag_Overdue_EMIs</localDeveloperName>
+            <masterLabel>Validate and Flag Overdue EMIs</masterLabel>
+            <progressIndicatorMessage>Retrivng....</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Check_Loan_Application_Status_179Kj000000Xppk</fullName>
+            <description>Use this action only when the customer explicitly provides a specific Loan Application ID (such as LA-00123) to check the application status.</description>
+            <developerName>Check_Loan_Application_Status_179Kj000000Xppk</developerName>
+            <invocationTarget>Check_Loan_Application_Status</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Check_Loan_Application_Status</localDeveloperName>
+            <masterLabel>Check Loan Application Status</masterLabel>
+            <progressIndicatorMessage>Searching...</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Calculate_Loan_Eligibility_179Kj000000Xppk</fullName>
+            <description>Use this action when a customer asks whether they are eligible for a loan, what loan amount they qualify for, or their eligibility tier. Requires monthly income and credit score.</description>
+            <developerName>Calculate_Loan_Eligibility_179Kj000000Xppk</developerName>
+            <invocationTarget>LoanEligibilityCalculator</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Calculate_Loan_Eligibility</localDeveloperName>
+            <masterLabel>Calculate Loan Eligibility</masterLabel>
+            <progressIndicatorMessage>Feching....</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Generate_EMI_Schedule_Summary_179Kj000000Xppk</fullName>
+            <description>Use this action when the customer asks about their EMI schedule, remaining EMIs, next due date, or payment history for a loan account. Requires Loan Account ID</description>
+            <developerName>Generate_EMI_Schedule_Summary_179Kj000000Xppk</developerName>
+            <invocationTarget>Generate_EMI_Schedule_Summary</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Generate_EMI_Schedule_Summary</localDeveloperName>
+            <masterLabel>Generate EMI Schedule Summary</masterLabel>
+            <progressIndicatorMessage>Fetching EMI schedule details for your loan account...</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Predict_Loan_Amount</fullName>
+            <description>Use this action to predict the AI-powered loan amount estimate based on customer monthly income and credit score.</description>
+            <developerName>Predict_Loan_Amount</developerName>
+            <invocationTarget>PredictLoanAmount</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Predict_Loan_Amount</localDeveloperName>
+            <masterLabel>Predict Loan Amount</masterLabel>
+            <progressIndicatorMessage>Predicting loan amount...</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Build_Loan_Offer_Context</fullName>
+            <description>Use this action BEFORE generating the personalised loan offer message. It computes offer expiry, headline, and tier badge for a Customer record. Requires Customer ID or Customer Name.</description>
+            <developerName>Build_Loan_Offer_Context</developerName>
+            <invocationTarget>LoanOfferContextBuilder</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Build_Loan_Offer_Context</localDeveloperName>
+            <masterLabel>Build Loan Offer Context</masterLabel>
+            <progressIndicatorMessage>Computing loan offer context...</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Generate_Personalised_Loan_Offer</fullName>
+            <description>Use this action to build context, generate a personalised loan offer message, and save it to the customer record. Requires customerId (can be Customer Record ID or Customer Name).</description>
+            <developerName>Generate_Personalised_Loan_Offer</developerName>
+            <invocationTarget>Send_Personalised_Loan_Offer</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Generate_Personalised_Loan_Offer</localDeveloperName>
+            <masterLabel>Generate Personalised Loan Offer</masterLabel>
+            <progressIndicatorMessage>Generating personalised loan offer...</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Generate_Loan_Rejection_Reason</fullName>
+            <description>Use this action when asked to generate the rejection reason or suggestion for a loan application, or when asked for the rejection reason of any application such as LA-00078 or LA-00001. Populates AI_Rejection_Suggestion__c on the record and returns the 2-3 sentence empathetic draft rejection reason. Requires Loan Application ID or Application Number.</description>
+            <developerName>Generate_Loan_Rejection_Reason</developerName>
+            <invocationTarget>Generate_Loan_Rejection_Reason</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Generate_Loan_Rejection_Reason</localDeveloperName>
+            <masterLabel>Generate Loan Rejection Reason</masterLabel>
+            <progressIndicatorMessage>Generating loan rejection reason draft...</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Generate_Loan_Account_Summary</fullName>
+            <description>Use this action when a customer asks to summarise or get an account summary of their loan account (such as LA-009, LACC-00001, or any loan account ID/number). Returns a 360-degree internal loan summary generated directly by the template including loan details, tenure, EMI, current status, overdue flags, risk flags, and customer financial profile. Requires loanAccountId (which can be Loan Number like LA-009 or Record ID).</description>
+            <developerName>Generate_Loan_Account_Summary</developerName>
+            <invocationTarget>Generate_Loan_Account_Summary</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Generate_Loan_Account_Summary</localDeveloperName>
+            <masterLabel>Generate Loan Account Summary</masterLabel>
+            <progressIndicatorMessage>Generating loan account 360 summary...</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Check_Loan_Default_Risk</fullName>
+            <description>Evaluates loan account data and returns AI-predicted default risk (High/Low), probability score percentage, and proactive outreach recommendation. Use when customer asks if their loan account (such as LA-009 or record ID) is at risk of default. Requires loanAccountId.</description>
+            <developerName>Check_Loan_Default_Risk</developerName>
+            <invocationTarget>LoanDefaultRiskService</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Check_Loan_Default_Risk</localDeveloperName>
+            <masterLabel>Check Loan Default Risk</masterLabel>
+            <progressIndicatorMessage>Evaluating default risk...</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Send_Loan_Hardship_Message</fullName>
+            <description>Generates and returns an empathetic loan hardship support message offering restructuring, deferral, or branch visit for accounts with overdue balance or high default risk. Use when customer has missed EMIs or asks for hardship support (e.g. for LA-009, LA-048, or Rajesh). Requires loanAccountId.</description>
+            <developerName>Send_Loan_Hardship_Message</developerName>
+            <invocationTarget>Send_Loan_Hardship_Message</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Send_Loan_Hardship_Message</localDeveloperName>
+            <masterLabel>Send Loan Hardship Message</masterLabel>
+            <progressIndicatorMessage>Generating hardship support message...</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Get_Loan_FAQ_Answer</fullName>
+            <description>Generates personalized loan policy FAQ answers combining grounded bank policy documents with customer credit and tier profile. Use when customer asks about required documents, eligibility rules, or policy questions for specific loan types (such as Home Loan or Personal Loan). Requires customerId (optional) and preferredLoanType (optional).</description>
+            <developerName>Get_Loan_FAQ_Answer</developerName>
+            <invocationTarget>Get_Loan_FAQ_Answer</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Get_Loan_FAQ_Answer</localDeveloperName>
+            <masterLabel>Get Loan FAQ Answer</masterLabel>
+            <progressIndicatorMessage>Retrieving loan policy answers...</progressIndicatorMessage>
+        </localActions>
+        <localDeveloperName>Loan_Servicing_Topic</localDeveloperName>
+        <masterLabel>Loan Servicing</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Use this topic when a customer asks about loan products, loan eligibility calculations, loan amount predictions, home loan or personal loan document checklists, loan policy questions, EMI grace periods, late payment charges, checking loan default risk, hardship support for missed EMIs, loan account 360 summaries (such as LA-009), personalized loan offers, or application status and rejection reasons.</scope>
+    </localTopics>
+    <localTopics>
+        <fullName>CaseManagement_16jNS000004HAzz</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Handles customer inquiries and actions related to support cases, including providing case information, updating existing cases, and creating new cases.</description>
+        <developerName>CaseManagement_16jNS000004HAzz</developerName>
+        <genAiPluginInstructions>
+            <description>Always format any dates in a human readable format</description>
+            <developerName>Instruction1</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction1</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Do not ever show the Case Id to a customer</description>
+            <developerName>Instruction2</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction2</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When calling Create Case with Enhanced Data, verifiedCustomerID must be a valid 18-character Salesforce Contact record ID (e.g., 003NS000025SmM8YAK for Edna Frank), never an email address. If the customer is Edna Frank, use Contact ID 003NS000025SmM8YAK.</description>
+            <developerName>Instruction3</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction3</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When adding a comment to a case, first retrieve the case details using the case number, ask the user for the exact comment they would like to add and only then add it.</description>
+            <developerName>Instruction4</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction4</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When sharing case details with the customer, show the following properties as an itemized list :Case number, Subject, Description, and Status. The Subject must exactly match the value stored in the case record. Do not rephrase or regenerate it.</description>
+            <developerName>Instruction5</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction5</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>A case is a record used to help track a customer&apos;s issues. Customers may have questions about the status of the issue or want to provide more information for the case. Cases are usually associated with a contact. Comments are added to provide new information.</description>
+            <developerName>Instruction6</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction6</masterLabel>
+            <sortOrder>5</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Use the Answer Questions with Knowledge action to answer troubleshooting questions.</description>
+            <developerName>Instruction7</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction7</masterLabel>
+            <sortOrder>6</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Acknowledge and validate user concerns with empathy and professionalism.</description>
+            <developerName>Instruction8</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction8</masterLabel>
+            <sortOrder>7</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When a customer asks you to create a case, please summarize the current conversation. The subject should be less than 7 words and function as a high level overview of what the customer inquired about. The description should be no more than 3 sentences and should provide more depth about what exactly the customer asked, important data, and any other relevant information to help a customer service representative understand the context of this conversation.</description>
+            <developerName>Instruction9</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction9</masterLabel>
+            <sortOrder>8</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When sharing the Description field from a case record with the customer, summarize it into a condensed, conversational version that is no more than 3 sentences. The summary must preserve all important factual content and intent from the original case description, and must not introduce any new or misleading information.</description>
+            <developerName>Instruction10</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction10</masterLabel>
+            <sortOrder>9</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>CreateCaseEnhancedData_179NS000005s2GT</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>AnswerQuestionsWithKnowledge_179NS000005s2GT</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>GetCaseByVerifiedCaseNumber_179NS000005s2GT</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>AddCaseComment_179NS000005s2GT</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>GetCasesForVerifiedContact_179NS000005s2GT</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>AddCaseComment_179NS000005s2GT</fullName>
+            <description>Let a customer add a comment to an existing case.</description>
+            <developerName>AddCaseComment_179NS000005s2GT</developerName>
+            <invocationTarget>SvcCopilotTmpl__AddCaseComment</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>AddCaseComment</localDeveloperName>
+            <masterLabel>Add Case Comment</masterLabel>
+            <source>SvcCopilotTmpl__AddCaseComment</source>
+        </localActions>
+        <localActions>
+            <fullName>GetCaseByVerifiedCaseNumber_179NS000005s2GT</fullName>
+            <description>Returns a case associated with a given contact ID and case number.</description>
+            <developerName>GetCaseByVerifiedCaseNumber_179NS000005s2GT</developerName>
+            <invocationTarget>SvcCopilotTmpl__GetCaseByVrfyCaseNbr</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetCaseByVerifiedCaseNumber</localDeveloperName>
+            <masterLabel>Get Case By Verified Case Number</masterLabel>
+            <source>SvcCopilotTmpl__GetCaseByVerifiedCaseNumber</source>
+        </localActions>
+        <localActions>
+            <fullName>CreateCaseEnhancedData_179NS000005s2GT</fullName>
+            <description>Create a case for the customer that&apos;s transferred from the AI agent to a service rep. The case includes all information gathered from the customer, a summary of the progress made by the AI agent, a link to the conversation, and any attachments.</description>
+            <developerName>CreateCaseEnhancedData_179NS000005s2GT</developerName>
+            <invocationTarget>SvcCopilotTmpl__CreateCaseEnhancedData</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>CreateCaseEnhancedData</localDeveloperName>
+            <masterLabel>Create Case with Enhanced Data</masterLabel>
+            <source>SvcCopilotTmpl__CreateCaseEnhancedData</source>
+        </localActions>
+        <localActions>
+            <fullName>GetCasesForVerifiedContact_179NS000005s2GT</fullName>
+            <description>Returns a list of cases related to a given Contact ID.</description>
+            <developerName>GetCasesForVerifiedContact_179NS000005s2GT</developerName>
+            <invocationTarget>SvcCopilotTmpl__GetCasesVrfyCtct</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetCasesForVerifiedContact</localDeveloperName>
+            <masterLabel>Get Cases For Verified Contact</masterLabel>
+            <source>SvcCopilotTmpl__GetCasesForVerifiedContact</source>
+        </localActions>
+        <localActions>
+            <fullName>AnswerQuestionsWithKnowledge_179NS000005s2GT</fullName>
+            <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+            <developerName>AnswerQuestionsWithKnowledge_179NS000005s2GT</developerName>
+            <invocationTarget>streamKnowledgeSearch</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+            <masterLabel>Answer Questions with Knowledge</masterLabel>
+            <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+            <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+        </localActions>
+        <localDeveloperName>CaseManagement</localDeveloperName>
+        <masterLabel>Case Management</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is to help customers retrieve case information, update case comments, and create new cases based on customer requests.</scope>
+        <source>SvcCopilotTmpl__CaseManagement</source>
+    </localTopics>
+    <masterLabel>Loan Management Agent</masterLabel>
+    <plannerActions>
+        <fullName>AnswerQuestionsWithKnowledge_16jKj000000wowm</fullName>
+        <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+        <developerName>AnswerQuestionsWithKnowledge_16jKj000000wowm</developerName>
+        <invocationTarget>streamKnowledgeSearch</invocationTarget>
+        <invocationTargetType>standardInvocableAction</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+        <masterLabel>Answer Questions with Knowledge</masterLabel>
+        <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+        <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+    </plannerActions>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__CustomerWebClient</surface>
+        <surfaceType>CustomerWebClient</surfaceType>
+    </plannerSurfaces>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__Messaging</surface>
+        <surfaceType>Messaging</surfaceType>
+    </plannerSurfaces>
+    <plannerType>AiCopilot__ReAct</plannerType>
+    <ruleExpressions>
+        <conditions>
+            <leftOperand>isVerified</leftOperand>
+            <leftOperandType>Variable</leftOperandType>
+            <operator>equal</operator>
+            <rightOperandValue>true</rightOperandValue>
+        </conditions>
+        <expression>Verified_User</expression>
+        <expressionLabel>Verified User</expressionLabel>
+        <expressionName>Verified_User</expressionName>
+        <expressionType>sel</expressionType>
+    </ruleExpressions>
+</GenAiPlannerBundle>

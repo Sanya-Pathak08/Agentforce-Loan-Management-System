@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Generates AI Summary for the Loan Account</description>
+    <flowDefinition>Show_Loan_Account_Summary</flowDefinition>
+    <label>Generate AI Summary</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

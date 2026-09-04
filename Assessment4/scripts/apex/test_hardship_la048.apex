@@ -1,0 +1,1 @@
+Map<String, Object> params = new Map<String, Object>{'loanAccountId' => 'LA-048'}; Flow.Interview.Send_Loan_Hardship_Message interview = new Flow.Interview.Send_Loan_Hardship_Message(params); interview.start(); System.debug('RESULT_MSG: ' + interview.getVariableValue('hardshipMessage'));

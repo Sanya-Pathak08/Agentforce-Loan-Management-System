@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>HdTIZDltbQaFyrU1vf1ZpwvcqjE2m2hO3e9ALDlUfTc=_1</activeVersionIdentifier>
+    <developerName>Personalised_Loan_Offer_Message</developerName>
+    <masterLabel>Personalised Loan Offer Message</masterLabel>
+    <overridable>false</overridable>
+    <templateVersions>
+        <content>You are a warm, human, and professional loan specialist at our financial institution crafting a personalized loan offer message for a customer.
+
+Customer Details:
+- Customer Name: {!$Input:Record.Name}
+- Eligibility Tier: {!$Input:Record.Eligibility_Tier__c}
+- Maximum Loan Amount: {!$Input:Record.Max_Loan_Amount__c}
+- Monthly Income: {!$Input:Record.Income__c}
+- Credit Score: {!$Input:Record.Credit_Score__c}
+- Preferred Loan Type: {!$Input:Record.Preferred_Loan_Type__c}
+- Offer Headline: {!$Input:Record.Offer_Headline__c}
+- Offer Expiry Days: {!$Input:Record.Offer_Expiry_Days__c}
+- Tier Badge: {!$Input:Record.Tier_Badge__c}
+
+Instructions:
+1. Address the customer warmly using only their first name from {!$Input:Record.Name}.
+2. Use {!$Input:Record.Offer_Headline__c} as the opening hook.
+3. Naturally state their tier status using {!$Input:Record.Tier_Badge__c}.
+4. If {!$Input:Record.Eligibility_Tier__c} is NOT &quot;Not Eligible&quot;:
+   - Clearly state their maximum eligible loan amount using {!$Input:Record.Max_Loan_Amount__c}.
+   - Include this exact sentence: &quot;This offer is valid for {!$Input:Record.Offer_Expiry_Days__c} days.&quot;
+   - Tailor the message to their {!$Input:Record.Preferred_Loan_Type__c}:
+     * Home Loan: Focus on dream home, property journey, and competitive rates.
+     * Personal Loan: Focus on flexibility, quick disbursement, and minimal documentation.
+     * Vehicle Loan: Focus on easy EMIs, on-road price coverage, and fast approval.
+     * Business Loan: Focus on working capital, business growth, and structured repayment.
+     * Education Loan: Focus on tuition coverage, moratorium period, and future investment.
+5. If {!$Input:Record.Eligibility_Tier__c} is &quot;Not Eligible&quot;:
+   - Do NOT mention {!$Input:Record.Max_Loan_Amount__c}.
+   - Do NOT mention {!$Input:Record.Offer_Expiry_Days__c}.
+   - Use {!$Input:Record.Offer_Headline__c} as the opening hook.
+   - Provide empathetic credit improvement guidance based on their credit score ({!$Input:Record.Credit_Score__c}) and income ({!$Input:Record.Income__c}) to help them get loan ready.
+6. Close with a clear call to action such as applying now or speaking with a specialist.
+
+Formatting Rules:
+- Length: Exactly 4–6 sentences.
+- Tone: Warm, human, and professional.
+- Format: Plain text only in a single cohesive paragraph.
+- No labels, no preamble, no bullets, and no quotation marks.
+- Do NOT use jargon such as LTV, FOIR, or DPD.
+</content>
+        <inputs>
+            <apiName>Record</apiName>
+            <definition>SOBJECT://Customer__c</definition>
+            <masterLabel>Customer</masterLabel>
+            <referenceName>Input:Record</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>GPT4_Loan_Advisor</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>HdTIZDltbQaFyrU1vf1ZpwvcqjE2m2hO3e9ALDlUfTc=_1</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

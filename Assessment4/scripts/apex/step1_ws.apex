@@ -1,0 +1,1 @@
+insert new ContentWorkspace(Name = 'Loan_Policy_Library', Description = 'Agentforce Data Library for Loan Policies');

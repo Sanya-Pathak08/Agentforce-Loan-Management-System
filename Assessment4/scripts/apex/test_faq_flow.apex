@@ -1,0 +1,1 @@
+Map<String, Object> inputs = new Map<String, Object>{'customerId' => 'Rajesh Sharma', 'preferredLoanType' => 'Personal Loan'}; Flow.Interview.Get_Loan_FAQ_Answer flowInterview = new Flow.Interview.Get_Loan_FAQ_Answer(inputs); flowInterview.start(); String ans = (String) flowInterview.getVariableValue('faqAnswer'); System.debug('=== FAQ ANSWER VIA FLOW ===: ' + ans);
