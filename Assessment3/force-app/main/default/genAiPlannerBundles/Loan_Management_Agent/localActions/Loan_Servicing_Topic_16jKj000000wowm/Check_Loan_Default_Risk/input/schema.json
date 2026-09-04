@@ -1,0 +1,14 @@
+{
+  "required" : [ "loanAccountId" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "loanAccountId" : {
+      "title" : "loanAccountId",
+      "description" : "Salesforce Record ID, Loan Number (e.g. LA-009), or Account Name",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

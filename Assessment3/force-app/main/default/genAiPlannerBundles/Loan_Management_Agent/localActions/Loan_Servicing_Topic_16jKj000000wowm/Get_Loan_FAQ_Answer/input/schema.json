@@ -1,0 +1,20 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "customerId" : {
+      "title" : "customerId",
+      "description" : "Customer Record ID or Customer Name (e.g. John Doe, Rajesh Sharma)",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "preferredLoanType" : {
+      "title" : "preferredLoanType",
+      "description" : "Loan type of interest such as Home Loan, Personal Loan, etc.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}
