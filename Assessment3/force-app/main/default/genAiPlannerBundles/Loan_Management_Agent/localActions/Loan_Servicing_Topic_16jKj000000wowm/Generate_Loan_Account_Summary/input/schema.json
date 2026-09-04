@@ -1,0 +1,14 @@
+{
+  "required" : [ "loanAccountId" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "loanAccountId" : {
+      "title" : "loanAccountId",
+      "description" : "Loan Account Number (such as LA-009, LACC-00001) or Record ID",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

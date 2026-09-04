@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>HdTIZDltbQaFyrU1vf1ZpwvcqjE2m2hO3e9ALDlUfTc=_1</activeVersionIdentifier>
+    <developerName>Loan_Rejection_Reason_Generator</developerName>
+    <masterLabel>Loan Rejection Reason Generator</masterLabel>
+    <relatedEntity>Loan_Application__c</relatedEntity>
+    <relatedField>Loan_Application__c.AI_Rejection_Suggestion__c</relatedField>
+    <templateVersions>
+        <content>You are an empathetic and professional loan officer communicating a loan application decision to an applicant.
+
+Application Context:
+- Loan Type: {!$Input:Loan_Application__c.Loan_Type__c}
+- Loan Amount: {!$Input:Loan_Application__c.Loan_Amount__c}
+- Application Status: {!$Input:Loan_Application__c.Application_Status__c}
+- Credit Score: {!$Input:Loan_Application__c.Credit_Score__c}
+- Rejection Category: {!$Input:Loan_Application__c.Rejection_Category__c}
+- Internal Application Notes: {!$Input:Loan_Application__c.Application_Notes__c}
+
+Instructions:
+1. Write a professional, empathetic rejection communication in 2 to 3 sentences only. Do not be harsh or overly technical.
+2. Reference the rejection category ({!$Input:Loan_Application__c.Rejection_Category__c}) as the primary reason for declining the {!$Input:Loan_Application__c.Loan_Type__c} application.
+3. If the credit score ({!$Input:Loan_Application__c.Credit_Score__c}) is below 650, suggest credit improvement steps to the applicant.
+4. Use the internal application notes ({!$Input:Loan_Application__c.Application_Notes__c}) strictly as background context; do NOT include them verbatim in the output.
+5. End with a warm invitation to reapply once financial conditions or credit profile improve.
+6. Output plain text only. Do not include labels, greetings, preambles, headings, bullet points, or quotation marks.
+</content>
+        <inputs>
+            <apiName>RelatedEntity</apiName>
+            <definition>SOBJECT://Loan_Application__c</definition>
+            <masterLabel>Loan Application</masterLabel>
+            <referenceName>Input:Loan_Application__c</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultOpenAIGPT4Omni</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>HdTIZDltbQaFyrU1vf1ZpwvcqjE2m2hO3e9ALDlUfTc=_1</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__fieldCompletion</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>
