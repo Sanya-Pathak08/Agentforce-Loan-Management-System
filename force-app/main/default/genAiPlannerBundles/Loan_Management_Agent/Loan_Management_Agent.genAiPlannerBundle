@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Deliver personalized customer interactions with an autonomous AI agent. Agentforce Service Agent intelligently supports your customers with common inquiries and escalates complex issues.</description>
+    <localActionLinks>
+        <genAiFunctionName>AnswerQuestionsWithKnowledge_16jKj000000wowm</genAiFunctionName>
+    </localActionLinks>
+    <localTopicLinks>
+        <genAiPluginName>CaseManagement_16jNS000004HAzz</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>Loan_Servicing_Topic_16jKj000000wowm</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>Loan_Servicing_Topic_16jKj000000wowm</fullName>
+        <canEscalate>true</canEscalate>
+        <description>Handles loan status checks, EMI schedules, eligibility
+
+calculations, and overdue EMI detection for the Agentforce Loan
+Management System.</description>
+        <developerName>Loan_Servicing_Topic_16jKj000000wowm</developerName>
+        <genAiPluginInstructions>
+            <description>You are a Loan Management Service Agent. Help customers with loan-related questions using Salesforce data, configured actions, and grounded loan policy documents.
+
+Always use system actions for customer-specific information. Never guess, assume, or fabricate information.
+
+For loan policy, eligibility criteria, interest rates, required documents, EMI rules, grace periods, prepayment, or rejection reasons, use grounded loan policy documents first. When asked what documents are required for a personal loan, respond: According to our Personal Loan Policy, the required documents are identity proof, income proof, and bank statements.
+
+For a specific loan application status, require the Loan Application ID and use the Check Loan Application Status action.
+Return response in format:
+Status: &lt;applicationStatus&gt;
+Reason: &lt;rejectionReason&gt;
+
+If the customer asks why a loan was rejected without providing an Application ID, do not ask for the ID and do not call the status action. Search the grounded policy documents first. If no relevant answer is found, use the Create Case topic and route the case to the Loan Support Queue.
+Respond:
+I couldn&apos;t find the answer in our policy documents. I&apos;ve created a support case so our loan specialist can help you.
+Case Created: Case #&lt;caseNumber&gt;
+
+For EMI count, paid EMIs, pending EMIs, payment schedule, or next due date, use the Generate EMI Schedule Summary action with the provided Loan Account ID.
+Return response in format:
+Total EMIs: &lt;totalEMIs&gt;
+Paid EMIs: &lt;paidEMIs&gt;
+Pending EMIs: &lt;pendingEMIs&gt;
+Next Due Date: &lt;nextDueDate&gt;
+
+For loan eligibility, collect monthly income and credit score, then use the Calculate Loan Eligibility action. Do not calculate eligibility manually.
+Return response in format:
+Eligibility Tier: &lt;eligibilityTier&gt;
+Maximum Loan Amount: ₹&lt;maxLoanAmount&gt;
+
+For overdue or missed EMIs, use the Validate and Flag Overdue EMIs action with the provided Loan Account ID. Use the returned overdue count, amount, and message.
+Return response:
+&lt;overdueMessage&gt;
+
+If required information is missing, ask the customer only for the information required to perform the requested action.
+
+If information cannot be found or the system cannot provide a reliable answer, do not guess. Escalate using the Case Management Topic and provide the created case number.
+
+Always give concise, accurate, professional responses. Do not expose internal Salesforce, Flow, Apex, SOQL, or implementation details. Always return plain text.</description>
+            <developerName>instruction_1</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction 1</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>Check_Loan_Application_Status_179Kj000000Xppk</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Generate_EMI_Schedule_Summary_179Kj000000Xppk</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Calculate_Loan_Eligibility_179Kj000000Xppk</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Validate_and_Flag_Overdue_EMIs_179Kj000000Xppk</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>Validate_and_Flag_Overdue_EMIs_179Kj000000Xppk</fullName>
+            <description>Use this action when a customer asks if they have any overdue or missed EMIs on their loan account. Updates overdue EMI records and returns count and total amount. Requires Loan Account ID.</description>
+            <developerName>Validate_and_Flag_Overdue_EMIs_179Kj000000Xppk</developerName>
+            <invocationTarget>OverdueEMIValidator</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Validate_and_Flag_Overdue_EMIs</localDeveloperName>
+            <masterLabel>Validate and Flag Overdue EMIs</masterLabel>
+            <progressIndicatorMessage>Retrivng....</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Check_Loan_Application_Status_179Kj000000Xppk</fullName>
+            <description>Use this action only when the customer explicitly provides a specific Loan Application ID (such as LA-00123) to check the application status.</description>
+            <developerName>Check_Loan_Application_Status_179Kj000000Xppk</developerName>
+            <invocationTarget>Check_Loan_Application_Status</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Check_Loan_Application_Status</localDeveloperName>
+            <masterLabel>Check Loan Application Status</masterLabel>
+            <progressIndicatorMessage>Searching...</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Calculate_Loan_Eligibility_179Kj000000Xppk</fullName>
+            <description>Use this action when a customer asks whether they are eligible for a loan, what loan amount they qualify for, or their eligibility tier. Requires monthly income and credit score.</description>
+            <developerName>Calculate_Loan_Eligibility_179Kj000000Xppk</developerName>
+            <invocationTarget>LoanEligibilityCalculator</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Calculate_Loan_Eligibility</localDeveloperName>
+            <masterLabel>Calculate Loan Eligibility</masterLabel>
+            <progressIndicatorMessage>Feching....</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Generate_EMI_Schedule_Summary_179Kj000000Xppk</fullName>
+            <description>Use this action when the customer asks about their EMI schedule, remaining EMIs, next due date, or payment history for a loan account. Requires Loan Account ID</description>
+            <developerName>Generate_EMI_Schedule_Summary_179Kj000000Xppk</developerName>
+            <invocationTarget>Generate_EMI_Schedule_Summary</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Generate_EMI_Schedule_Summary</localDeveloperName>
+            <masterLabel>Generate EMI Schedule Summary</masterLabel>
+            <progressIndicatorMessage>Fetching EMI schedule details for your loan account...</progressIndicatorMessage>
+        </localActions>
+        <localDeveloperName>Loan_Servicing_Topic</localDeveloperName>
+        <masterLabel>Loan Servicing</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Use this topic when a customer asks about their loan application status, EMI schedule, loan eligibility, overdue payments, or questions regarding loan policy, required documents, interest rates, and EMI grace periods.</scope>
+    </localTopics>
+    <localTopics>
+        <fullName>CaseManagement_16jNS000004HAzz</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Handles customer inquiries and actions related to support cases, including providing case information, updating existing cases, and creating new cases.</description>
+        <developerName>CaseManagement_16jNS000004HAzz</developerName>
+        <genAiPluginInstructions>
+            <description>Always format any dates in a human readable format</description>
+            <developerName>Instruction1</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction1</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Do not ever show the Case Id to a customer</description>
+            <developerName>Instruction2</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction2</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When calling Create Case with Enhanced Data, verifiedCustomerID must be a valid 18-character Salesforce Contact record ID (e.g., 003NS000025SmM8YAK for Edna Frank), never an email address. If the customer is Edna Frank, use Contact ID 003NS000025SmM8YAK.</description>
+            <developerName>Instruction3</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction3</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When adding a comment to a case, first retrieve the case details using the case number, ask the user for the exact comment they would like to add and only then add it.</description>
+            <developerName>Instruction4</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction4</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When sharing case details with the customer, show the following properties as an itemized list :Case number, Subject, Description, and Status. The Subject must exactly match the value stored in the case record. Do not rephrase or regenerate it.</description>
+            <developerName>Instruction5</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction5</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>A case is a record used to help track a customer&apos;s issues. Customers may have questions about the status of the issue or want to provide more information for the case. Cases are usually associated with a contact. Comments are added to provide new information.</description>
+            <developerName>Instruction6</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction6</masterLabel>
+            <sortOrder>5</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Use the Answer Questions with Knowledge action to answer troubleshooting questions.</description>
+            <developerName>Instruction7</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction7</masterLabel>
+            <sortOrder>6</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Acknowledge and validate user concerns with empathy and professionalism.</description>
+            <developerName>Instruction8</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction8</masterLabel>
+            <sortOrder>7</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When a customer asks you to create a case, please summarize the current conversation. The subject should be less than 7 words and function as a high level overview of what the customer inquired about. The description should be no more than 3 sentences and should provide more depth about what exactly the customer asked, important data, and any other relevant information to help a customer service representative understand the context of this conversation.</description>
+            <developerName>Instruction9</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction9</masterLabel>
+            <sortOrder>8</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When sharing the Description field from a case record with the customer, summarize it into a condensed, conversational version that is no more than 3 sentences. The summary must preserve all important factual content and intent from the original case description, and must not introduce any new or misleading information.</description>
+            <developerName>Instruction10</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction10</masterLabel>
+            <sortOrder>9</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>CreateCaseEnhancedData_179NS000005s2GT</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>AnswerQuestionsWithKnowledge_179NS000005s2GT</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>GetCaseByVerifiedCaseNumber_179NS000005s2GT</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>AddCaseComment_179NS000005s2GT</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>GetCasesForVerifiedContact_179NS000005s2GT</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>AddCaseComment_179NS000005s2GT</fullName>
+            <description>Let a customer add a comment to an existing case.</description>
+            <developerName>AddCaseComment_179NS000005s2GT</developerName>
+            <invocationTarget>SvcCopilotTmpl__AddCaseComment</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>AddCaseComment</localDeveloperName>
+            <masterLabel>Add Case Comment</masterLabel>
+            <source>SvcCopilotTmpl__AddCaseComment</source>
+        </localActions>
+        <localActions>
+            <fullName>GetCaseByVerifiedCaseNumber_179NS000005s2GT</fullName>
+            <description>Returns a case associated with a given contact ID and case number.</description>
+            <developerName>GetCaseByVerifiedCaseNumber_179NS000005s2GT</developerName>
+            <invocationTarget>SvcCopilotTmpl__GetCaseByVrfyCaseNbr</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetCaseByVerifiedCaseNumber</localDeveloperName>
+            <masterLabel>Get Case By Verified Case Number</masterLabel>
+            <source>SvcCopilotTmpl__GetCaseByVerifiedCaseNumber</source>
+        </localActions>
+        <localActions>
+            <fullName>CreateCaseEnhancedData_179NS000005s2GT</fullName>
+            <description>Create a case for the customer that&apos;s transferred from the AI agent to a service rep. The case includes all information gathered from the customer, a summary of the progress made by the AI agent, a link to the conversation, and any attachments.</description>
+            <developerName>CreateCaseEnhancedData_179NS000005s2GT</developerName>
+            <invocationTarget>SvcCopilotTmpl__CreateCaseEnhancedData</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>true</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>CreateCaseEnhancedData</localDeveloperName>
+            <masterLabel>Create Case with Enhanced Data</masterLabel>
+            <source>SvcCopilotTmpl__CreateCaseEnhancedData</source>
+        </localActions>
+        <localActions>
+            <fullName>GetCasesForVerifiedContact_179NS000005s2GT</fullName>
+            <description>Returns a list of cases related to a given Contact ID.</description>
+            <developerName>GetCasesForVerifiedContact_179NS000005s2GT</developerName>
+            <invocationTarget>SvcCopilotTmpl__GetCasesVrfyCtct</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>GetCasesForVerifiedContact</localDeveloperName>
+            <masterLabel>Get Cases For Verified Contact</masterLabel>
+            <source>SvcCopilotTmpl__GetCasesForVerifiedContact</source>
+        </localActions>
+        <localActions>
+            <fullName>AnswerQuestionsWithKnowledge_179NS000005s2GT</fullName>
+            <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+            <developerName>AnswerQuestionsWithKnowledge_179NS000005s2GT</developerName>
+            <invocationTarget>streamKnowledgeSearch</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+            <masterLabel>Answer Questions with Knowledge</masterLabel>
+            <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+            <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+        </localActions>
+        <localDeveloperName>CaseManagement</localDeveloperName>
+        <masterLabel>Case Management</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is to help customers retrieve case information, update case comments, and create new cases based on customer requests.</scope>
+        <source>SvcCopilotTmpl__CaseManagement</source>
+    </localTopics>
+    <masterLabel>Loan Management Agent</masterLabel>
+    <plannerActions>
+        <fullName>AnswerQuestionsWithKnowledge_16jKj000000wowm</fullName>
+        <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+        <developerName>AnswerQuestionsWithKnowledge_16jKj000000wowm</developerName>
+        <invocationTarget>streamKnowledgeSearch</invocationTarget>
+        <invocationTargetType>standardInvocableAction</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+        <masterLabel>Answer Questions with Knowledge</masterLabel>
+        <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+        <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+    </plannerActions>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__CustomerWebClient</surface>
+        <surfaceType>CustomerWebClient</surfaceType>
+    </plannerSurfaces>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__Messaging</surface>
+        <surfaceType>Messaging</surfaceType>
+    </plannerSurfaces>
+    <plannerType>AiCopilot__ReAct</plannerType>
+    <ruleExpressions>
+        <conditions>
+            <leftOperand>isVerified</leftOperand>
+            <leftOperandType>Variable</leftOperandType>
+            <operator>equal</operator>
+            <rightOperandValue>true</rightOperandValue>
+        </conditions>
+        <expression>Verified_User</expression>
+        <expressionLabel>Verified User</expressionLabel>
+        <expressionName>Verified_User</expressionName>
+        <expressionType>sel</expressionType>
+    </ruleExpressions>
+</GenAiPlannerBundle>
