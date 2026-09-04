@@ -12,7 +12,7 @@
     </localTopicLinks>
     <localTopics>
         <fullName>Loan_Servicing_Topic_16jKj000000wowm</fullName>
-        <canEscalate>true</canEscalate>
+        <canEscalate>false</canEscalate>
         <description>Handles loan status checks, rejection reason generation, personalized loan offers, EMI schedules, eligibility calculations, and overdue EMI detection for the Agentforce Loan Management System.</description>
         <developerName>Loan_Servicing_Topic_16jKj000000wowm</developerName>
         <genAiPluginInstructions>
@@ -45,9 +45,9 @@ Key Query Handling &amp; Action Routing:
 
 4. Missed EMIs &amp; Hardship Support:
    - When a customer reports missed EMIs or asks for hardship support (e.g. &quot;I missed 2 EMIs. What should I do?&quot; or &quot;Rajesh has overdue INR 48,000 and High default risk. Send a support message.&quot;):
-   - Invoke Send_Loan_Hardship_Message (or Validate_and_Flag_Overdue_EMIs) for the account.
-   - Acknowledge the overdue balance clearly and empathetically without judgment or alarmist language.
-   - Offer proactive hardship restructuring options (such as tenure extension or temporary payment relief) and provide actionable next steps to contact customer care, request an EMI deferral, or visit their nearest branch.
+   - Immediately invoke Send_Loan_Hardship_Message with loanAccountId &quot;LA-048&quot;, &quot;LA-009&quot;, or customer name &quot;Rajesh&quot;.
+   - NEVER transfer to a human representative or case management for hardship messages.
+   - Return the warm, empathetic 3-4 sentence message directly in the chat offering restructuring options and next steps.
 
 5. EMI Payment Rules &amp; Grace Period:
    - When asked &quot;What is the late payment charge?&quot; or &quot;What is the grace period on EMI payments?&quot;:
@@ -95,6 +95,15 @@ Key Query Handling &amp; Action Routing:
         </localActionLinks>
         <localActionLinks>
             <functionName>Generate_Loan_Account_Summary</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Check_Loan_Default_Risk</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Send_Loan_Hardship_Message</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Get_Loan_FAQ_Answer</functionName>
         </localActionLinks>
         <localActions>
             <fullName>Validate_and_Flag_Overdue_EMIs_179Kj000000Xppk</fullName>
@@ -203,6 +212,42 @@ Key Query Handling &amp; Action Routing:
             <localDeveloperName>Generate_Loan_Account_Summary</localDeveloperName>
             <masterLabel>Generate Loan Account Summary</masterLabel>
             <progressIndicatorMessage>Generating loan account 360 summary...</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Check_Loan_Default_Risk</fullName>
+            <description>Evaluates loan account data and returns AI-predicted default risk (High/Low), probability score percentage, and proactive outreach recommendation. Use when customer asks if their loan account (such as LA-009 or record ID) is at risk of default. Requires loanAccountId.</description>
+            <developerName>Check_Loan_Default_Risk</developerName>
+            <invocationTarget>LoanDefaultRiskService</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Check_Loan_Default_Risk</localDeveloperName>
+            <masterLabel>Check Loan Default Risk</masterLabel>
+            <progressIndicatorMessage>Evaluating default risk...</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Send_Loan_Hardship_Message</fullName>
+            <description>Generates and returns an empathetic loan hardship support message offering restructuring, deferral, or branch visit for accounts with overdue balance or high default risk. Use when customer has missed EMIs or asks for hardship support (e.g. for LA-009, LA-048, or Rajesh). Requires loanAccountId.</description>
+            <developerName>Send_Loan_Hardship_Message</developerName>
+            <invocationTarget>Send_Loan_Hardship_Message</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Send_Loan_Hardship_Message</localDeveloperName>
+            <masterLabel>Send Loan Hardship Message</masterLabel>
+            <progressIndicatorMessage>Generating hardship support message...</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Get_Loan_FAQ_Answer</fullName>
+            <description>Generates personalized loan policy FAQ answers combining grounded bank policy documents with customer credit and tier profile. Use when customer asks about required documents, eligibility rules, or policy questions for specific loan types (such as Home Loan or Personal Loan). Requires customerId (optional) and preferredLoanType (optional).</description>
+            <developerName>Get_Loan_FAQ_Answer</developerName>
+            <invocationTarget>Get_Loan_FAQ_Answer</invocationTarget>
+            <invocationTargetType>flow</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Get_Loan_FAQ_Answer</localDeveloperName>
+            <masterLabel>Get Loan FAQ Answer</masterLabel>
+            <progressIndicatorMessage>Retrieving loan policy answers...</progressIndicatorMessage>
         </localActions>
         <localDeveloperName>Loan_Servicing_Topic</localDeveloperName>
         <masterLabel>Loan Servicing</masterLabel>

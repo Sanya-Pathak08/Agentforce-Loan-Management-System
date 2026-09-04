@@ -53,6 +53,7 @@ Formatting Rules:
             <required>true</required>
         </inputs>
         <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>GPT4_Loan_Advisor</primaryModel>
         <status>Published</status>
         <versionIdentifier>HdTIZDltbQaFyrU1vf1ZpwvcqjE2m2hO3e9ALDlUfTc=_1</versionIdentifier>
     </templateVersions>

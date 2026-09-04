@@ -1,57 +1,42 @@
-﻿# Agentforce Loan Management System - Assessment 3 Full Backup
+# Agentforce Loan Management System - Assessment 3: Foundation Model Integration (BYOLLM)
 
 ## Overview
-This repository backup contains the complete, production-ready implementation of the **Agentforce Loan Management System** developed across all assessments of the Agentforce DevLabs Series.
+This repository backup contains the complete, production-ready implementation of **Assessment 3: Foundation Model Integration (BYOLLM)** and all phases of **Session 4: AI Intelligence Layer** from the Agentforce DevLabs Series.
 
-## Project Structure
-- `force-app/main/default/`:
-  - `objects/`:
-    - `Customer__c`: Customer profile, financial metrics, and personalized offer fields.
-    - `Loan_Application__c`: Loan applications with rejection category, notes, and AI rejection suggestions.
-    - `Loan_Account__c`: Disbursed loan accounts with risk flag, overdue amounts, tenure, and AI account summary.
-    - `EMI_Schedule__c`: Monthly EMI schedule with status tracking.
-    - `Loan_Document__c`: Document storage linked to customers, applications, and accounts.
-  - `classes/`:
-    - `LoanEligibilityCalculator.cls`: Calculates tier (Gold/Silver/Standard/Not Eligible) and max loan amount.
-    - `OverdueEMIValidator.cls`: Identifies overdue EMIs and flags accounts.
-    - `EMIScheduleSummaryService.cls`: Aggregates EMI schedule statistics.
-    - `LoanOfferContextBuilder.cls`: Prepares formatted Indian currency loan offer context.
-    - `PredictLoanAmount.cls`: AI/rule-calibrated loan estimate prediction.
-    - `LoanApplicationProcessingService.cls`: Automated trigger processing for loan applications.
-    - Corresponding unit test classes with 100% test pass rate and high coverage.
-  - `triggers/`:
-    - `LoanApplicationTrigger.trigger`: Automatically approves/rejects loan applications based on credit score.
-  - `flows/`:
-    - `Auto_Refresh_Loan_Account_Summary`: Record-Triggered flow auto-updating AI summary when status, risk flag, or overdue amount changes.
-    - `Show_Loan_Account_Summary`: Interactive Screen Flow with Save to Record vs Discard options.
-    - `Generate_Loan_Account_Summary`: Autolaunched flow providing agent action for loan account summaries.
-    - `Generate_Loan_Rejection_Reason`: Autolaunched flow generating rejection suggestions via prompt template.
-    - `Send_Personalised_Loan_Offer`: Autolaunched flow orchestrating Apex context builder and personalized offer prompt.
-    - `Check_Loan_Application_Status`: Flow checking application status by number or ID.
-    - `Generate_EMI_Schedule_Summary`: Flow returning detailed EMI breakdown.
-  - `genAiPromptTemplates/`:
-    - `Loan_Account_360_Summary`: Record summary template (GPT-4o) with 12 merge fields.
-    - `Loan_Rejection_Reason_Generator`: Flex prompt template generating 2-3 sentence rejection guidance.
-    - `Personalised_Loan_Offer_Message`: Flex prompt template generating personalized loan offer proposals.
-    - `Generate_Personalized_Schedule`: Schedule summary template.
-  - `quickActions/`:
-    - `Loan_Account__c.Generate_AI_Summary`: Flow quick action placed on Loan Account page layout.
-  - `layouts/`:
-    - `Loan_Account__c-Loan Account Layout`: Enhanced layout with Quick Action, Risk & Overdue section, and AI Summary section.
-  - `genAiPlannerBundles/`:
-    - `Loan_Management_Agent`: Configured planner with `Loan_Servicing_Topic` and grounded actions.
-  - `permissionsets/`:
-    - `Loan_Management_Admin`: Full CRUD, FLS, Apex class, and tab permissions.
-- `manifest/package.xml`: Complete package manifest for deployments.
-- `scripts/apex/`: Comprehensive suite of anonymous Apex test scripts.
+## Key Components Implemented in Assessment 3
+1. **External Model Registration & Named Credentials (BYOLLM)**:
+   - **External Model**: `GPT4_Loan_Advisor` registered in Model Builder.
+   - **Named Credential**: `OpenAI_API_Credential` targeting `https://api.openai.com/v1/chat/completions`.
+   - **Status**: Active & Verified.
 
-## Deployment Instructions
-```bash
-sf project deploy start -x manifest/package.xml -o <YourOrgAlias>
-```
+2. **Prompt Templates Configured with `GPT4_Loan_Advisor`**:
+   - `Personalised_Loan_Offer_Message`: Flex template upgraded to use `GPT4_Loan_Advisor`.
+   - `Loan_Hardship_Support_Message`: New Flex template using `GPT4_Loan_Advisor` to produce warm, empathetic 3–4 sentence hardship solutions (tenure extension, payment relief, branch visit).
+   - `Loan_FAQ_Answer_Generator`: Grounded loan policy FAQ generator combining bank policy documents with customer profiles.
 
-## Verification Scenarios
-1. **Screen Flow Save Path**: Open Loan Account -> 'Generate AI Summary' -> 'Save to Record' -> Verify AI Summary and timestamp update.
-2. **Screen Flow Discard Path**: Open Loan Account -> 'Generate AI Summary' -> 'Discard' -> Confirm fields remain untouched.
-3. **Agentforce Query**: Customer asks *"Can you summarise my loan account LA-009?"* -> Agent invokes `Generate_Loan_Account_Summary` and returns 360 summary.
-4. **Auto-Refresh Automation**: Update `Risk_Flag__c` on a Loan Account -> `Auto_Refresh_Loan_Account_Summary` triggers and refreshes the summary.
+3. **Flow & Invocable Actions**:
+   - `Send_Loan_Hardship_Message`: Autolaunched flow with intelligent multi-tier resolution (Loan Account ID, Loan Number, Customer Name, and overdue fallback) that invokes `Loan_Hardship_Support_Message`.
+   - `Get_Loan_FAQ_Answer`: Flow generating personalized policy answers.
+   - `Check_Loan_Default_Risk`: Invocable Apex evaluating AI-predicted default risk.
+
+4. **Agentforce Planner Bundle (`Loan_Management_Agent`)**:
+   - Integrated System Prompt defining the AI role as a professional loan advisor at an Indian bank with strict scope guardrails.
+   - Added `Send_Loan_Hardship_Message`, `Get_Loan_FAQ_Answer`, and `Check_Loan_Default_Risk` actions to `Loan_Servicing_Topic`.
+   - Disabled unwarranted escalation to guarantee immediate action execution.
+
+## Verification Scenarios (Page 10 of DevLabs Assessment)
+
+### 1. Scope Guardrail Test
+- **Query**: `"Give me a 500-word essay on Indian banking history."`
+- **Agent Response**: *"I'm here to assist with loan management or related support. If you have any questions about loans, repayments, or financial assistance, feel free to ask!"*
+- **Result**: **PASSED** (Agent politely declines non-loan request and redirects back to loan management).
+
+### 2. Model Selection Verification
+- `Personalised_Loan_Offer_Message` -> Primary Model: `GPT4_Loan_Advisor`
+- `Loan_Hardship_Support_Message` -> Primary Model: `GPT4_Loan_Advisor`
+- **Result**: **PASSED** (Both prompt templates use the external foundation model).
+
+### 3. Hardship Template & Agent Action Test
+- **Query**: `"Rajesh has overdue INR 48,000 and High default risk. Send a support message."`
+- **Agent Response**: *"Rajesh, I acknowledge an overdue balance of ₹48,000 on your loan account and appreciate your attention to this matter. Given the high default risk, we can offer hardship restructuring options such as tenure extension or temporary payment relief to help manage the repayments. Please contact our customer care, request an EMI deferral, or visit your nearest branch so we can work through a tailored plan together. Thank you for your time and responsiveness."*
+- **Result**: **PASSED** (Empathetic 4-sentence support message with restructuring options delivered directly in chat).

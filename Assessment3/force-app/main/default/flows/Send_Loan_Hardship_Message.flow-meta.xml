@@ -4,7 +4,7 @@
         <name>Generate_Hardship_Message_Prompt</name>
         <label>Generate Hardship Message Prompt</label>
         <locationX>176</locationX>
-        <locationY>458</locationY>
+        <locationY>1000</locationY>
         <actionName>Loan_Hardship_Support_Message</actionName>
         <actionType>generatePromptResponse</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -47,6 +47,81 @@
             <label>Is Record ID</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Check_Account_Found</name>
+        <label>Check Account Found</label>
+        <locationX>176</locationX>
+        <locationY>350</locationY>
+        <defaultConnector>
+            <targetReference>Get_Customer_By_Name</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Account Not Found</defaultConnectorLabel>
+        <rules>
+            <name>Account_Is_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>loanAccountRecord</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Generate_Hardship_Message_Prompt</targetReference>
+            </connector>
+            <label>Account Is Found</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Customer_Found</name>
+        <label>Check Customer Found</label>
+        <locationX>300</locationX>
+        <locationY>550</locationY>
+        <defaultConnector>
+            <targetReference>Get_Fallback_Overdue_Account</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Customer Not Found</defaultConnectorLabel>
+        <rules>
+            <name>Customer_Is_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>customerRecord</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Account_For_Customer</targetReference>
+            </connector>
+            <label>Customer Is Found</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Customer_Account_Found</name>
+        <label>Check Customer Account Found</label>
+        <locationX>200</locationX>
+        <locationY>750</locationY>
+        <defaultConnector>
+            <targetReference>Get_Fallback_Overdue_Account</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Account Not Found</defaultConnectorLabel>
+        <rules>
+            <name>Customer_Account_Is_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>loanAccountRecord</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Generate_Hardship_Message_Prompt</targetReference>
+            </connector>
+            <label>Customer Account Is Found</label>
+        </rules>
+    </decisions>
     <description>Generates and returns an empathetic loan hardship support message using Loan_Hardship_Support_Message prompt template.</description>
     <environments>Default</environments>
     <formulas>
@@ -74,9 +149,9 @@
         <label>Get Account By Id</label>
         <locationX>50</locationX>
         <locationY>242</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Generate_Hardship_Message_Prompt</targetReference>
+            <targetReference>Check_Account_Found</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -104,9 +179,9 @@
         <label>Get Account By Number</label>
         <locationX>302</locationX>
         <locationY>242</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Generate_Hardship_Message_Prompt</targetReference>
+            <targetReference>Check_Account_Found</targetReference>
         </connector>
         <filterLogic>or</filterLogic>
         <filters>
@@ -136,6 +211,99 @@
         <queriedFields>Total_Overdue_Amount__c</queriedFields>
         <queriedFields>Customer__c</queriedFields>
     </recordLookups>
+    <recordLookups>
+        <name>Get_Customer_By_Name</name>
+        <label>Get Customer By Name</label>
+        <locationX>300</locationX>
+        <locationY>450</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Customer_Found</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>StartsWith</operator>
+            <value>
+                <elementReference>loanAccountId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>loanAccountId</elementReference>
+            </value>
+        </filters>
+        <object>Customer__c</object>
+        <outputReference>customerRecord</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Account_For_Customer</name>
+        <label>Get Account For Customer</label>
+        <locationX>200</locationX>
+        <locationY>650</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Customer_Account_Found</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Customer__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>customerRecord.Id</elementReference>
+            </value>
+        </filters>
+        <object>Loan_Account__c</object>
+        <outputReference>loanAccountRecord</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>Loan_Number__c</queriedFields>
+        <queriedFields>Loan_Amount__c</queriedFields>
+        <queriedFields>EMI_Amount__c</queriedFields>
+        <queriedFields>Loan_Status__c</queriedFields>
+        <queriedFields>Risk_Flag__c</queriedFields>
+        <queriedFields>Default_Risk__c</queriedFields>
+        <queriedFields>Total_Overdue_Amount__c</queriedFields>
+        <queriedFields>Customer__c</queriedFields>
+        <sortField>Total_Overdue_Amount__c</sortField>
+        <sortOrder>Desc</sortOrder>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Fallback_Overdue_Account</name>
+        <label>Get Fallback Overdue Account</label>
+        <locationX>400</locationX>
+        <locationY>850</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Generate_Hardship_Message_Prompt</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Total_Overdue_Amount__c</field>
+            <operator>GreaterThan</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </filters>
+        <object>Loan_Account__c</object>
+        <outputReference>loanAccountRecord</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>Loan_Number__c</queriedFields>
+        <queriedFields>Loan_Amount__c</queriedFields>
+        <queriedFields>EMI_Amount__c</queriedFields>
+        <queriedFields>Loan_Status__c</queriedFields>
+        <queriedFields>Risk_Flag__c</queriedFields>
+        <queriedFields>Default_Risk__c</queriedFields>
+        <queriedFields>Total_Overdue_Amount__c</queriedFields>
+        <queriedFields>Customer__c</queriedFields>
+        <sortField>Total_Overdue_Amount__c</sortField>
+        <sortOrder>Desc</sortOrder>
+    </recordLookups>
     <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
@@ -144,6 +312,14 @@
         </connector>
     </start>
     <status>Active</status>
+    <variables>
+        <name>customerRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Customer__c</objectType>
+    </variables>
     <variables>
         <name>hardshipMessage</name>
         <dataType>String</dataType>
