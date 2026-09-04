@@ -17,6 +17,8 @@
         <members>LoanApplicationProcessingTest</members>
         <members>EMIScheduleSummaryService</members>
         <members>EMIScheduleSummaryServiceTest</members>
+        <members>PredictLoanAmount</members>
+        <members>PredictLoanAmountTest</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -43,6 +45,14 @@
     <types>
         <members>Loan_Management_Agent</members>
         <name>GenAiPlannerBundle</name>
+    </types>
+    <types>
+        <members>Customer__c</members>
+        <members>Loan_Application__c</members>
+        <members>Loan_Account__c</members>
+        <members>EMI_Schedule__c</members>
+        <members>Loan_Document__c</members>
+        <name>CustomTab</name>
     </types>
     <version>67.0</version>
 </Package>

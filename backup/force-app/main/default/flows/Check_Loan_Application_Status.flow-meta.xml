@@ -3,34 +3,164 @@
     <apiVersion>67.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <assignments>
-        <name>Assign_Found_Values</name>
-        <label>Assign Found Values</label>
-        <locationX>176</locationX>
-        <locationY>242</locationY>
+        <name>Assign_Id_Values</name>
+        <label>Assign Id Values</label>
+        <locationX>182</locationX>
+        <locationY>650</locationY>
         <assignmentItems>
             <assignToReference>applicationStatus</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>formulaStatus</elementReference>
+                <elementReference>formulaIdStatus</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>rejectionReason</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>formulaReason</elementReference>
+                <elementReference>formulaIdReason</elementReference>
             </value>
         </assignmentItems>
     </assignments>
+    <assignments>
+        <name>Assign_Name_Values</name>
+        <label>Assign Name Values</label>
+        <locationX>50</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>applicationStatus</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>formulaNameStatus</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>rejectionReason</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>formulaNameReason</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Assign_Not_Found</name>
+        <label>Assign Not Found</label>
+        <locationX>446</locationX>
+        <locationY>650</locationY>
+        <assignmentItems>
+            <assignToReference>applicationStatus</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Not Found</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>rejectionReason</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>None</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>Check_Found_By_Id</name>
+        <label>Check Found By Id</label>
+        <locationX>314</locationX>
+        <locationY>542</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Not_Found</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Found</defaultConnectorLabel>
+        <rules>
+            <name>Found_By_Id</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Loan_Application_By_Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Id_Values</targetReference>
+            </connector>
+            <label>Found By Id</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Found_By_Name</name>
+        <label>Check Found By Name</label>
+        <locationX>248</locationX>
+        <locationY>242</locationY>
+        <defaultConnector>
+            <targetReference>Check_If_Id_Format</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Found By Name</defaultConnectorLabel>
+        <rules>
+            <name>Found_By_Name</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Loan_Application_By_Name</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Name_Values</targetReference>
+            </connector>
+            <label>Found By Name</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_If_Id_Format</name>
+        <label>Check If Id Format</label>
+        <locationX>446</locationX>
+        <locationY>350</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Not_Found</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Id Format</defaultConnectorLabel>
+        <rules>
+            <name>Is_Id_Format</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formulaIsIdFormat</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Loan_Application_By_Id</targetReference>
+            </connector>
+            <label>Is Id Format</label>
+        </rules>
+    </decisions>
     <formulas>
-        <name>formulaReason</name>
+        <name>formulaIdReason</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK({!Get_Loan_Application.Rejection_Reason__c}), &quot;None&quot;, {!Get_Loan_Application.Rejection_Reason__c})</expression>
+        <expression>IF(ISBLANK({!Get_Loan_Application_By_Id.Rejection_Reason__c}), &quot;None&quot;, {!Get_Loan_Application_By_Id.Rejection_Reason__c})</expression>
     </formulas>
     <formulas>
-        <name>formulaStatus</name>
+        <name>formulaIdStatus</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK(TEXT({!Get_Loan_Application.Application_Status__c})), &quot;Not Found&quot;, TEXT({!Get_Loan_Application.Application_Status__c}))</expression>
+        <expression>IF(ISBLANK(TEXT({!Get_Loan_Application_By_Id.Application_Status__c})), &quot;Not Found&quot;, TEXT({!Get_Loan_Application_By_Id.Application_Status__c}))</expression>
+    </formulas>
+    <formulas>
+        <name>formulaIsIdFormat</name>
+        <dataType>Boolean</dataType>
+        <expression>(LEN({!loanApplicationId}) == 15 || LEN({!loanApplicationId}) == 18) &amp;&amp; NOT(CONTAINS({!loanApplicationId}, &quot;-&quot;)) &amp;&amp; NOT(CONTAINS({!loanApplicationId}, &quot; &quot;))</expression>
+    </formulas>
+    <formulas>
+        <name>formulaNameReason</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK({!Get_Loan_Application_By_Name.Rejection_Reason__c}), &quot;None&quot;, {!Get_Loan_Application_By_Name.Rejection_Reason__c})</expression>
+    </formulas>
+    <formulas>
+        <name>formulaNameStatus</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK(TEXT({!Get_Loan_Application_By_Name.Application_Status__c})), &quot;Not Found&quot;, TEXT({!Get_Loan_Application_By_Name.Application_Status__c}))</expression>
     </formulas>
     <interviewLabel>Check Loan Application Status {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Check Loan Application Status</label>
@@ -42,15 +172,15 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordLookups>
-        <name>Get_Loan_Application</name>
-        <label>Get Loan Application</label>
-        <locationX>176</locationX>
-        <locationY>134</locationY>
+        <name>Get_Loan_Application_By_Id</name>
+        <label>Get Loan Application By Id</label>
+        <locationX>314</locationX>
+        <locationY>458</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Assign_Found_Values</targetReference>
+            <targetReference>Check_Found_By_Id</targetReference>
         </connector>
-        <filterLogic>or</filterLogic>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -58,6 +188,20 @@
                 <elementReference>loanApplicationId</elementReference>
             </value>
         </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Loan_Application__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Loan_Application_By_Name</name>
+        <label>Get Loan Application By Name</label>
+        <locationX>248</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Found_By_Name</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Name</field>
             <operator>EqualTo</operator>
@@ -70,10 +214,10 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <start>
-        <locationX>50</locationX>
+        <locationX>122</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Get_Loan_Application</targetReference>
+            <targetReference>Get_Loan_Application_By_Name</targetReference>
         </connector>
     </start>
     <status>Active</status>

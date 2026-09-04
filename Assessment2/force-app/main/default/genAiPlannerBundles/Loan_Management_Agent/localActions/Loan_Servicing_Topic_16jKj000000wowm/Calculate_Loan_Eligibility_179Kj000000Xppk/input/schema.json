@@ -1,0 +1,21 @@
+{
+  "required" : [ "creditScore", "monthlyIncome" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "creditScore" : {
+      "title" : "creditScore",
+      "description" : "creditScore",
+      "lightning:type" : "lightning__integerType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "monthlyIncome" : {
+      "title" : "monthlyIncome",
+      "description" : "monthlyIncome",
+      "lightning:type" : "lightning__numberType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

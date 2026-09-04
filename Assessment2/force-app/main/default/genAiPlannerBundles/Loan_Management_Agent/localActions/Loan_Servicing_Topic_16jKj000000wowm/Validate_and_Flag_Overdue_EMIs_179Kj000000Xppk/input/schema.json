@@ -1,0 +1,14 @@
+{
+  "required" : [ "loanAccountId" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "loanAccountId" : {
+      "title" : "loanAccountId",
+      "description" : "loanAccountId",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

@@ -1,0 +1,21 @@
+{
+  "required" : [ "creditScore", "monthlyIncome" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "creditScore" : {
+      "title" : "creditScore",
+      "description" : "CIBIL credit score of the customer (300-900)",
+      "lightning:type" : "lightning__integerType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "monthlyIncome" : {
+      "title" : "monthlyIncome",
+      "description" : "Monthly income of the customer in INR",
+      "lightning:type" : "lightning__numberType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

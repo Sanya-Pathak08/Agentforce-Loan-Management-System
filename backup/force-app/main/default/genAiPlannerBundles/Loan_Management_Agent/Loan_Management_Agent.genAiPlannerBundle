@@ -42,10 +42,23 @@ Paid EMIs: &lt;paidEMIs&gt;
 Pending EMIs: &lt;pendingEMIs&gt;
 Next Due Date: &lt;nextDueDate&gt;
 
-For loan eligibility, collect monthly income and credit score, then use the Calculate Loan Eligibility action. Do not calculate eligibility manually.
-Return response in format:
-Eligibility Tier: &lt;eligibilityTier&gt;
-Maximum Loan Amount: ₹&lt;maxLoanAmount&gt;
+For loan eligibility and loan amount prediction requests:
+When users provide monthly income and credit score information, automatically invoke both:
+* LoanEligibilityCalculator
+* Predict Loan Amount
+
+Return:
+* rule-based eligibility tier and amount
+* AI-predicted loan amount
+* concise financial comparison summary
+
+Do not ask for loan tenure or loan type unless absolutely required.
+
+Example:
+User: &quot;I earn INR 45,000/month, credit score 715. How much loan can I get?&quot;
+
+Expected Response:
+&quot;Based on your monthly income of INR 45,000 and credit score of 715, the rule-based eligibility calculation places you in the Silver Tier with an estimated eligible loan amount of INR 18,00,000. The AI-powered Loan Amount Predictor estimates approximately INR 22,40,000.&quot;
 
 For overdue or missed EMIs, use the Validate and Flag Overdue EMIs action with the provided Loan Account ID. Use the returned overdue count, amount, and message.
 Return response:
@@ -73,6 +86,9 @@ Always give concise, accurate, professional responses. Do not expose internal Sa
         </localActionLinks>
         <localActionLinks>
             <functionName>Validate_and_Flag_Overdue_EMIs_179Kj000000Xppk</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Predict_Loan_Amount</functionName>
         </localActionLinks>
         <localActions>
             <fullName>Validate_and_Flag_Overdue_EMIs_179Kj000000Xppk</fullName>
@@ -121,6 +137,18 @@ Always give concise, accurate, professional responses. Do not expose internal Sa
             <localDeveloperName>Generate_EMI_Schedule_Summary</localDeveloperName>
             <masterLabel>Generate EMI Schedule Summary</masterLabel>
             <progressIndicatorMessage>Fetching EMI schedule details for your loan account...</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Predict_Loan_Amount</fullName>
+            <description>Use this action to predict the AI-powered loan amount estimate based on customer monthly income and credit score.</description>
+            <developerName>Predict_Loan_Amount</developerName>
+            <invocationTarget>PredictLoanAmount</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Predict_Loan_Amount</localDeveloperName>
+            <masterLabel>Predict Loan Amount</masterLabel>
+            <progressIndicatorMessage>Predicting loan amount...</progressIndicatorMessage>
         </localActions>
         <localDeveloperName>Loan_Servicing_Topic</localDeveloperName>
         <masterLabel>Loan Servicing</masterLabel>
