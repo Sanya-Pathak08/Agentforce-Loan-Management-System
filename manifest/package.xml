@@ -19,6 +19,8 @@
         <members>EMIScheduleSummaryServiceTest</members>
         <members>PredictLoanAmount</members>
         <members>PredictLoanAmountTest</members>
+        <members>LoanOfferContextBuilder</members>
+        <members>LoanOfferContextBuilderTest</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -28,6 +30,7 @@
     <types>
         <members>Check_Loan_Application_Status</members>
         <members>Generate_EMI_Schedule_Summary</members>
+        <members>Send_Personalised_Loan_Offer</members>
         <name>Flow</name>
     </types>
     <types>
@@ -53,6 +56,10 @@
         <members>EMI_Schedule__c</members>
         <members>Loan_Document__c</members>
         <name>CustomTab</name>
+    </types>
+    <types>
+        <members>Personalised_Loan_Offer_Message</members>
+        <name>GenAiPromptTemplate</name>
     </types>
     <version>67.0</version>
 </Package>

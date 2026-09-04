@@ -64,6 +64,11 @@ For overdue or missed EMIs, use the Validate and Flag Overdue EMIs action with t
 Return response:
 &lt;overdueMessage&gt;
 
+For personalised loan offers or when a customer asks what loan offer they qualify for or what loan they can get based on their profile:
+1. First invoke Build_Loan_Offer_Context using the customer name or Customer ID to compute the offer context and enrich the Customer record.
+2. Next invoke Generate_Personalised_Loan_Offer using the Customer Record ID to produce the tailored offer message.
+3. Present the generated personalised offer message to the customer.
+
 If required information is missing, ask the customer only for the information required to perform the requested action.
 
 If information cannot be found or the system cannot provide a reliable answer, do not guess. Escalate using the Case Management Topic and provide the created case number.
@@ -89,6 +94,12 @@ Always give concise, accurate, professional responses. Do not expose internal Sa
         </localActionLinks>
         <localActionLinks>
             <functionName>Predict_Loan_Amount</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Build_Loan_Offer_Context</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Generate_Personalised_Loan_Offer</functionName>
         </localActionLinks>
         <localActions>
             <fullName>Validate_and_Flag_Overdue_EMIs_179Kj000000Xppk</fullName>
@@ -149,6 +160,30 @@ Always give concise, accurate, professional responses. Do not expose internal Sa
             <localDeveloperName>Predict_Loan_Amount</localDeveloperName>
             <masterLabel>Predict Loan Amount</masterLabel>
             <progressIndicatorMessage>Predicting loan amount...</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Build_Loan_Offer_Context</fullName>
+            <description>Use this action BEFORE generating the personalised loan offer message. It computes offer expiry, headline, and tier badge for a Customer record. Requires Customer ID or Customer Name.</description>
+            <developerName>Build_Loan_Offer_Context</developerName>
+            <invocationTarget>LoanOfferContextBuilder</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Build_Loan_Offer_Context</localDeveloperName>
+            <masterLabel>Build Loan Offer Context</masterLabel>
+            <progressIndicatorMessage>Computing loan offer context...</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>Generate_Personalised_Loan_Offer</fullName>
+            <description>Use this action AFTER running Build Loan Offer Context. Generates a personalised offer message using the customer&apos;s eligibility tier, preferred loan type, and pre-computed offer details. Requires the Customer Record ID.</description>
+            <developerName>Generate_Personalised_Loan_Offer</developerName>
+            <invocationTarget>Personalised_Loan_Offer_Message</invocationTarget>
+            <invocationTargetType>generatePromptResponse</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Generate_Personalised_Loan_Offer</localDeveloperName>
+            <masterLabel>Generate Personalised Loan Offer</masterLabel>
+            <progressIndicatorMessage>Generating personalised loan offer...</progressIndicatorMessage>
         </localActions>
         <localDeveloperName>Loan_Servicing_Topic</localDeveloperName>
         <masterLabel>Loan Servicing</masterLabel>
