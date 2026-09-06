@@ -1,0 +1,12 @@
+{
+  "type" : "sfdc_cms__route",
+  "title" : "Apply for a Loan",
+  "contentBody" : {
+    "activeViewId" : "loanApplication",
+    "configurationTags" : [ ],
+    "pageAccess" : "UseParent",
+    "routeType" : "custom-loan-application",
+    "urlPrefix" : "loan-application"
+  },
+  "urlName" : "loan-application"
+}

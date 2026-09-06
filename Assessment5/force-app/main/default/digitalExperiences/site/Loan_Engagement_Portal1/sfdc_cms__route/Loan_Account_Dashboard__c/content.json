@@ -1,0 +1,12 @@
+{
+  "type" : "sfdc_cms__route",
+  "title" : "My Loan Dashboard",
+  "contentBody" : {
+    "activeViewId" : "loanAccountDashboard",
+    "configurationTags" : [ ],
+    "pageAccess" : "RequiresLogin",
+    "routeType" : "custom-loan-account",
+    "urlPrefix" : "loan-account"
+  },
+  "urlName" : "loan-account"
+}

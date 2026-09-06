@@ -1,0 +1,105 @@
+{
+  "type" : "sfdc_cms__themeLayout",
+  "title" : "Scoped Header and Footer",
+  "contentBody" : {
+    "component" : {
+      "attributes" : {
+        "hideThemeFooter" : false,
+        "showThemeFooterAtBottom" : true,
+        "stickyThemeHeader" : false
+      },
+      "children" : [ {
+        "children" : [ {
+          "attributes" : {
+            "backgroundImageConfig" : "",
+            "backgroundImageOverlay" : "rgba(0,0,0,0)",
+            "componentSpacerSize" : "",
+            "dxpStyle" : { },
+            "layoutDirectionDesktop" : "row",
+            "layoutDirectionMobile" : "column",
+            "layoutDirectionTablet" : "column",
+            "maxContentWidth" : "",
+            "sectionColumnGutterWidth" : "",
+            "sectionConfig" : "{\"UUID\":\"41b7bb50-592c-4fed-8f33-432c3be7092b\",\"columns\":[{\"UUID\":\"7c8381a8-9d4d-4aad-96a3-dfd872ff2b32\",\"columnName\":\"Column 1\",\"columnKey\":\"headerSection\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
+            "sectionMinHeight" : "",
+            "sectionVerticalAlign" : "flex-start"
+          },
+          "children" : [ {
+            "children" : [ {
+              "attributes" : { },
+              "definition" : "c:portalNavigationHeader",
+              "id" : "bea81d4d-dbb6-4c50-be2c-f1b7a54f1e14",
+              "type" : "component"
+            } ],
+            "id" : "7c8381a8-9d4d-4aad-96a3-dfd872ff2b32",
+            "name" : "headerSection",
+            "title" : "Theme Header",
+            "type" : "region"
+          } ],
+          "definition" : "community_layout:section",
+          "id" : "41b7bb50-592c-4fed-8f33-432c3be7092b",
+          "type" : "component"
+        } ],
+        "id" : "c10b6b2c-0597-41b0-8990-6dad4ccd5fb7",
+        "name" : "header",
+        "title" : "Theme Header",
+        "type" : "region"
+      }, {
+        "children" : [ {
+          "attributes" : {
+            "backgroundImageConfig" : "",
+            "backgroundImageOverlay" : "rgba(0,0,0,0)",
+            "componentSpacerSize" : "",
+            "dxpStyle" : { },
+            "layoutDirectionDesktop" : "row",
+            "layoutDirectionMobile" : "column",
+            "layoutDirectionTablet" : "column",
+            "maxContentWidth" : "",
+            "sectionColumnGutterWidth" : "",
+            "sectionConfig" : "{\"UUID\":\"2af3d4e1-f0d8-4a71-87f7-80e06f70db63\",\"columns\":[{\"UUID\":\"3a5fb3e8-3654-4620-bf7a-564fc09830b9\",\"columnName\":\"Column 1\",\"columnKey\":\"footerSection\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
+            "sectionMinHeight" : "",
+            "sectionVerticalAlign" : "flex-start"
+          },
+          "children" : [ {
+            "children" : [ {
+              "attributes" : {
+                "clientVersion" : "WebV1",
+                "deploymentName" : "ESA_Web_Deployment",
+                "hideChatButtonOnLoad" : "Visible",
+                "isExpSiteAuthMode" : false,
+                "scrtUrl" : "https://teqfocus-c9-dev-ed.develop.my.salesforce-scrt.com",
+                "siteEndpoint" : "https://teqfocus-c9-dev-ed.develop.my.site.com/ESWESAWebDeployment1724800920657"
+              },
+              "definition" : "experience_messaging:embeddedMessaging",
+              "id" : "70d65fba-eeef-4124-a464-cf6e61fbb30f",
+              "type" : "component"
+            }, {
+              "attributes" : {
+                "dxpStyle" : { },
+                "richTextValue" : "<div style=\"background-color: #0d1e38; color: #90CAF9; padding: 24px; text-align: center; font-size: 12px; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1);\">\n  <div style=\"max-width: 800px; margin: 0 auto; line-height: 1.6;\">\n    <strong style=\"color: #FFFFFF;\">Apex Capital — Autonomous Lending & Loan Engagement Services</strong><br/>\n    Protected by Enterprise Security, Agentforce Headless 360 AI Guardrails, and strict Guest Privacy Controls.<br/>\n    &copy; 2026 Apex Capital Financial Services Ltd. All rights reserved.\n  </div>\n</div>"
+              },
+              "definition" : "community_builder:htmlEditor",
+              "id" : "f4b58f9e-a40c-45c9-97dc-7890ce124ddd",
+              "type" : "component"
+            } ],
+            "id" : "3a5fb3e8-3654-4620-bf7a-564fc09830b9",
+            "name" : "footerSection",
+            "title" : "Theme Footer",
+            "type" : "region"
+          } ],
+          "definition" : "community_layout:section",
+          "id" : "2af3d4e1-f0d8-4a71-87f7-80e06f70db63",
+          "type" : "component"
+        } ],
+        "id" : "5d7e397b-ea4c-438e-8eb4-60b36ee48915",
+        "name" : "footer",
+        "title" : "Theme Footer",
+        "type" : "region"
+      } ],
+      "definition" : "community_byo:scopedHeaderAndFooter",
+      "id" : "ec3912ee-b766-433d-b291-b688b48a0c0f",
+      "type" : "component"
+    }
+  },
+  "urlName" : "scoped-header-and-footer"
+}

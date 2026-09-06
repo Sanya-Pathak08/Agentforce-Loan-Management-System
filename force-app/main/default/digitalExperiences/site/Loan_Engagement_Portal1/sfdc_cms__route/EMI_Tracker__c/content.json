@@ -1,0 +1,12 @@
+{
+  "type" : "sfdc_cms__route",
+  "title" : "EMI Tracker",
+  "contentBody" : {
+    "activeViewId" : "emiTracker",
+    "configurationTags" : [ ],
+    "pageAccess" : "RequiresLogin",
+    "routeType" : "custom-emi-tracker",
+    "urlPrefix" : "emi-tracker"
+  },
+  "urlName" : "emi-tracker"
+}

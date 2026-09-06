@@ -1,0 +1,12 @@
+{
+  "type" : "sfdc_cms__route",
+  "title" : "Loan Policies and FAQs",
+  "contentBody" : {
+    "activeViewId" : "loanFaq",
+    "configurationTags" : [ ],
+    "pageAccess" : "UseParent",
+    "routeType" : "custom-loan-faq",
+    "urlPrefix" : "loan-faq"
+  },
+  "urlName" : "loan-faq"
+}

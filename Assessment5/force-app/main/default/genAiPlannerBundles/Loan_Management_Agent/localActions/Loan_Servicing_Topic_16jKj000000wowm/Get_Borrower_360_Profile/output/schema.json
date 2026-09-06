@@ -1,0 +1,105 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "borrowerName" : {
+      "title" : "borrowerName",
+      "description" : "Customer full name",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    },
+    "creditScore" : {
+      "title" : "creditScore",
+      "description" : "CIBIL credit score",
+      "lightning:type" : "lightning__integerType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    },
+    "eligibilityTier" : {
+      "title" : "eligibilityTier",
+      "description" : "Customer tier: Gold, Silver, or Standard",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    },
+    "kycStatus" : {
+      "title" : "kycStatus",
+      "description" : "Aadhaar and PAN e-KYC status",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    },
+    "activeLoansCount" : {
+      "title" : "activeLoansCount",
+      "description" : "Number of active loan accounts",
+      "lightning:type" : "lightning__integerType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    },
+    "totalSanctionedDebt" : {
+      "title" : "totalSanctionedDebt",
+      "description" : "Total sanctioned debt amount",
+      "lightning:type" : "lightning__numberType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    },
+    "totalOverdueAmount" : {
+      "title" : "totalOverdueAmount",
+      "description" : "Total overdue amount across accounts",
+      "lightning:type" : "lightning__numberType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    },
+    "bouncedEmiCount" : {
+      "title" : "bouncedEmiCount",
+      "description" : "Count of bounced EMI payments",
+      "lightning:type" : "lightning__integerType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    },
+    "repaymentTrackRecord" : {
+      "title" : "repaymentTrackRecord",
+      "description" : "Summary of borrower repayment discipline",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    },
+    "preApprovedOfferHeadline" : {
+      "title" : "preApprovedOfferHeadline",
+      "description" : "Pre-approved loan offer headline based on 360 profile",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    },
+    "profileSummary" : {
+      "title" : "profileSummary",
+      "description" : "Unified 360 borrower profile summary text",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

@@ -1,0 +1,71 @@
+{
+  "type" : "sfdc_cms__view",
+  "title" : "Loan Policies and FAQs",
+  "contentBody" : {
+    "component" : {
+      "children" : [ {
+        "children" : [ {
+          "attributes" : {
+            "backgroundImageConfig" : "",
+            "backgroundImageOverlay" : "rgba(0,0,0,0)",
+            "componentSpacerSize" : "",
+            "dxpStyle" : { },
+            "layoutDirectionDesktop" : "row",
+            "layoutDirectionMobile" : "column",
+            "layoutDirectionTablet" : "column",
+            "maxContentWidth" : "",
+            "sectionColumnGutterWidth" : "",
+            "sectionConfig" : "{\"UUID\":\"0910b390-ebfc-4e1d-b2ff-bf1f1ac32646\",\"columns\":[{\"UUID\":\"372f2471-796b-4e03-b0b1-605fbb95581e\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
+            "sectionMinHeight" : "",
+            "sectionVerticalAlign" : "flex-start"
+          },
+          "children" : [ {
+            "children" : [ {
+              "attributes" : {
+                "dxpStyle" : { }
+              },
+              "definition" : "c:loanPolicyFaq",
+              "id" : "6112394c-0f78-4fd5-bf76-5f42fb8bbb53",
+              "type" : "component"
+            } ],
+            "id" : "372f2471-796b-4e03-b0b1-605fbb95581e",
+            "name" : "col1",
+            "title" : "Column 1",
+            "type" : "region"
+          } ],
+          "definition" : "community_layout:section",
+          "id" : "0910b390-ebfc-4e1d-b2ff-bf1f1ac32646",
+          "type" : "component"
+        } ],
+        "id" : "b68f4933-0ac3-4634-94db-cd80243d6675",
+        "name" : "content",
+        "title" : "Content",
+        "type" : "region"
+      }, {
+        "children" : [ {
+          "attributes" : {
+            "customHeadTags" : "",
+            "description" : "",
+            "dxpStyle" : { },
+            "pageTitle" : "Loan Policies and FAQs",
+            "recordId" : "{!recordId}"
+          },
+          "definition" : "community_builder:seoAssistant",
+          "id" : "a73dc331-e5c9-4b51-9fb3-f7d74e0539dd",
+          "type" : "component"
+        } ],
+        "id" : "13bb3dd5-b9d5-4589-84cb-a7a247d09722",
+        "name" : "sfdcHiddenRegion",
+        "title" : "sfdcHiddenRegion",
+        "type" : "region"
+      } ],
+      "definition" : "community_layout:sldsFlexibleLayout",
+      "id" : "e4f9ca3a-3c93-4878-ba2c-9685c49a708f",
+      "type" : "component"
+    },
+    "dataProviders" : [ ],
+    "themeLayoutType" : "Inner",
+    "viewType" : "custom-loan-faq"
+  },
+  "urlName" : "loan-faq"
+}

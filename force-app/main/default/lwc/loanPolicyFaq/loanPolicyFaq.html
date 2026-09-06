@@ -1,0 +1,81 @@
+<template>
+    <div class="faq-container slds-p-around_medium">
+        <div class="slds-card slds-p-around_large main-card">
+            <!-- Header -->
+            <div class="header-box slds-m-bottom_large slds-text-align_center">
+                <h1 class="slds-text-heading_large font-bold text-bank-blue">Bank Loan Policies &amp; Knowledge FAQs</h1>
+                <p class="slds-text-body_regular slds-text-color_weak slds-m-top_xx-small">
+                    Grounded in official bank policy guidelines: Personal Loans, Home Loans, and EMI Rules
+                </p>
+            </div>
+
+            <!-- Accordion -->
+            <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+                
+                <!-- Section 1: Personal Loan Policies -->
+                <lightning-accordion-section name="personal" label="1. Personal Loan Policies (Eligibility, Tiers, Documents & Limits)">
+                    <div class="accordion-content slds-p-around_small">
+                        <p class="policy-intro">Our Personal Loan product provides unsecured financing for diverse personal requirements:</p>
+                        <ul class="slds-list_dotted slds-m-top_x-small">
+                            <li><strong>Eligibility Criteria:</strong> Age 21 to 60 years. Minimum net monthly salary of ₹25,000 for salaried employees, or ₹40,000 for self-employed professionals.</li>
+                            <li><strong>Credit Score Tiers:</strong> Gold Tier (750+), Silver Tier (700–749), Standard Tier (650–699). Applicants with scores below 650 are redirected to credit enhancement counseling.</li>
+                            <li><strong>Required Documents:</strong> Aadhaar Card, PAN Card, last 3 months salary slips, Form 16, and latest 6 months bank statement showing salary credits.</li>
+                            <li><strong>Loan Limits:</strong> Minimum loan amount ₹50,000 up to maximum cap of INR 25,00,000.</li>
+                            <li><strong>Tenure Range:</strong> Flexible repayment horizons from 12 to 60 months.</li>
+                            <li><strong>Prepayment &amp; Part-Payment:</strong> Allowed after 6 successfully cleared EMIs. Zero prepayment penalty for floating interest rate facilities.</li>
+                        </ul>
+                    </div>
+                </lightning-accordion-section>
+
+                <!-- Section 2: Home Loan Policies -->
+                <lightning-accordion-section name="home" label="2. Home Loan Policies (LTV Ratio, FOIR, Documents & Moratorium)">
+                    <div class="accordion-content slds-p-around_small">
+                        <p class="policy-intro">Grounded in our Home Loan Eligibility Guide:</p>
+                        <ul class="slds-list_dotted slds-m-top_x-small">
+                            <li><strong>Eligibility &amp; Credit Score:</strong> Minimum credit score of 700 required for all applicant tiers; score of 750+ qualifies for our lowest prime lending rate (starting at 8.50% p.a.).</li>
+                            <li><strong>LTV (Loan-to-Value) Ratio:</strong> Up to 80% of registered property market valuation, subject to maximum loan amount cap of <strong>INR 5 Crore</strong>.</li>
+                            <li><strong>FOIR (Fixed Obligation to Income Ratio):</strong> Maximum allowable FOIR is capped at 50% for standard earners and up to 60% for high-net-worth borrowers.</li>
+                            <li><strong>Required Documentation:</strong> Identity proof (Aadhaar &amp; PAN), 6 months salary slips, 2 years Form 16 / ITR, 6 months bank statements, property chain deed, approved building blueprint, and NOC from builder/society.</li>
+                            <li><strong>NRI Borrower Conditions:</strong> Valid Indian passport holders with valid work visas/permits and minimum 1 year continuous overseas employment with remittance via NRE/NRO accounts.</li>
+                            <li><strong>Moratorium Period:</strong> Up to 18 months construction-linked moratorium or until possession, whichever is earlier.</li>
+                        </ul>
+                    </div>
+                </lightning-accordion-section>
+
+                <!-- Section 3: EMI Rules & Payment Guidelines -->
+                <lightning-accordion-section name="emi" label="3. EMI Rules, Grace Periods, Late Charges & Hardship Policy">
+                    <div class="accordion-content slds-p-around_small">
+                        <p class="policy-intro">Grounded in our official EMI Payment Rules:</p>
+                        <ul class="slds-list_dotted slds-m-top_x-small">
+                            <li><strong>EMI Due Date:</strong> Automatically debited on the 5th calendar day of each month via NACH/e-Mandate.</li>
+                            <li><strong>Grace Period:</strong> The bank extends a mandatory <strong>7-calendar-day grace period</strong> from the scheduled due date before late fees apply.</li>
+                            <li><strong>Late Payment Charges:</strong> After the 7-day grace window, a late payment charge of <strong>2% per month</strong> applies on the overdue installment balance.</li>
+                            <li><strong>Bounce / Return Charges:</strong> ₹500 + statutory GST per inward clearing or auto-debit failure.</li>
+                            <li><strong>Overdue Classification &amp; NPA:</strong> 1–30 days (SMA-0), 31–60 days (SMA-1), 61–90 days (SMA-2). Continuous unpaid defaults of 90 days (3 consecutive missed EMIs) result in Non-Performing Asset (NPA) classification and mandatory CIBIL reporting.</li>
+                            <li><strong>Hardship &amp; Waiver Policy:</strong> Borrowers facing verified medical or economic distress can apply for tenure extension, temporary payment pauses, or a one-time late fee waiver via our Loan Support Desk.</li>
+                        </ul>
+                    </div>
+                </lightning-accordion-section>
+
+            </lightning-accordion>
+
+            <!-- Still Have Questions CTA Banner -->
+            <div class="cta-banner slds-box slds-m-top_large slds-p-around_medium slds-text-align_center">
+                <div class="slds-grid slds-wrap slds-grid_vertical-align-center">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-text-align_left slds-p-right_medium">
+                        <h3 class="slds-text-heading_small font-bold text-bank-blue">Still have questions about loan policies or your eligibility?</h3>
+                        <p class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">
+                            Our AI-powered Loan Advisor can answer policy questions, evaluate your eligibility tier, or guide you on repayment options in seconds.
+                        </p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-text-align_right slds-m-top_small slds-medium-m-top_none">
+                        <button class="chat-cta-btn slds-button slds-button_brand" onclick={handleOpenAgentChat}>
+                            <lightning-icon icon-name="utility:chat" size="x-small" variant="inverse" class="slds-m-right_x-small"></lightning-icon>
+                            Chat with our Loan Advisor
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

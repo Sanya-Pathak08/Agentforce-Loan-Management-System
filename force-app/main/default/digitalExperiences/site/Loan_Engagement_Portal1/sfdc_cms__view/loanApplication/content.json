@@ -1,0 +1,71 @@
+{
+  "type" : "sfdc_cms__view",
+  "title" : "Apply for a Loan",
+  "contentBody" : {
+    "component" : {
+      "children" : [ {
+        "children" : [ {
+          "attributes" : {
+            "backgroundImageConfig" : "",
+            "backgroundImageOverlay" : "rgba(0,0,0,0)",
+            "componentSpacerSize" : "",
+            "dxpStyle" : { },
+            "layoutDirectionDesktop" : "row",
+            "layoutDirectionMobile" : "column",
+            "layoutDirectionTablet" : "column",
+            "maxContentWidth" : "",
+            "sectionColumnGutterWidth" : "",
+            "sectionConfig" : "{\"UUID\":\"f5bd1993-0b61-4c77-ba5a-364bc1160c5b\",\"columns\":[{\"UUID\":\"7051216e-2d13-45d9-8c60-c1da5a410150\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
+            "sectionMinHeight" : "",
+            "sectionVerticalAlign" : "flex-start"
+          },
+          "children" : [ {
+            "children" : [ {
+              "attributes" : {
+                "dxpStyle" : { }
+              },
+              "definition" : "c:loanApplicationIntake",
+              "id" : "72b3e560-3cf7-4257-b111-da54eb664d3d",
+              "type" : "component"
+            } ],
+            "id" : "7051216e-2d13-45d9-8c60-c1da5a410150",
+            "name" : "col1",
+            "title" : "Column 1",
+            "type" : "region"
+          } ],
+          "definition" : "community_layout:section",
+          "id" : "f5bd1993-0b61-4c77-ba5a-364bc1160c5b",
+          "type" : "component"
+        } ],
+        "id" : "de44fe6b-45ba-4322-8c58-3c918810b393",
+        "name" : "content",
+        "title" : "Content",
+        "type" : "region"
+      }, {
+        "children" : [ {
+          "attributes" : {
+            "customHeadTags" : "",
+            "description" : "",
+            "dxpStyle" : { },
+            "pageTitle" : "Apply for a Loan",
+            "recordId" : "{!recordId}"
+          },
+          "definition" : "community_builder:seoAssistant",
+          "id" : "d99b550b-4315-435f-a139-acc99ef459c7",
+          "type" : "component"
+        } ],
+        "id" : "1170ab38-2057-4b10-963f-5df1b05c7e3e",
+        "name" : "sfdcHiddenRegion",
+        "title" : "sfdcHiddenRegion",
+        "type" : "region"
+      } ],
+      "definition" : "community_layout:sldsFlexibleLayout",
+      "id" : "611375ad-4d67-4b21-b5e2-37852ba2ea7f",
+      "type" : "component"
+    },
+    "dataProviders" : [ ],
+    "themeLayoutType" : "Inner",
+    "viewType" : "custom-loan-application"
+  },
+  "urlName" : "loan-application"
+}

@@ -1,0 +1,95 @@
+<template>
+    <div class="portal-container slds-p-around_medium">
+        <!-- Header Banner LWC -->
+        <div class="header-banner slds-p-around_large slds-m-bottom_medium slds-text-align_center">
+            <h1 class="slds-text-heading_large banner-title">Apply for a Loan — Get a Decision in Minutes</h1>
+            <p class="banner-subtitle slds-m-top_x-small">Fast, transparent digital loan approvals powered by AI intelligence</p>
+        </div>
+
+        <!-- Eligibility Information Card -->
+        <div class="eligibility-card slds-box slds-theme_shade slds-m-bottom_medium">
+            <div class="slds-media slds-media_center">
+                <div class="slds-media__figure">
+                    <lightning-icon icon-name="standard:reward" size="medium" alternative-text="Eligibility"></lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-text-heading_small slds-text-color_default font-bold">Eligibility Guidelines (Policy Grounded)</h2>
+                    <ul class="slds-list_dotted slds-m-top_xx-small">
+                        <li><strong>Minimum CIBIL Score:</strong> 700 for all tiers (750+ preferred for best interest rates)</li>
+                        <li><strong>Income Requirement:</strong> Minimum ₹25,000/month (Salaried) or ₹40,000/month (Self-Employed)</li>
+                        <li><strong>Home Loan Limit:</strong> Up to 80% of property value (Maximum INR 5 Crore cap)</li>
+                        <li><strong>Documents Required:</strong> Aadhaar, PAN, last 3–6 months salary slips, and 6 months bank statements</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confirmation State -->
+        <template lwc:if={isSubmitted}>
+            <div class="confirmation-banner slds-box slds-p-around_large slds-text-align_center slds-m-bottom_medium">
+                <lightning-icon icon-name="action:approval" size="large" alternative-text="Success" class="slds-m-bottom_small"></lightning-icon>
+                <h2 class="slds-text-heading_medium slds-text-color_success font-bold">Application Submitted Successfully!</h2>
+                <p class="slds-text-body_regular slds-m-top_small application-number">
+                    Application Reference: <strong>{submittedAppNumber}</strong>
+                </p>
+                <p class="confirmation-message slds-text-heading_small slds-m-top_small">
+                    Your application has been submitted. A loan specialist will contact you within 24 hours.
+                </p>
+                <div class="slds-m-top_medium">
+                    <lightning-button variant="brand" label="Submit Another Application" onclick={handleReset} class="portal-btn"></lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <!-- Application Form -->
+        <template lwc:else>
+            <div class="form-card slds-card slds-p-around_large">
+                <h3 class="slds-text-heading_medium slds-m-bottom_medium section-title">Loan Application Intake Form</h3>
+
+                <lightning-record-edit-form
+                    object-api-name="Loan_Application__c"
+                    onsuccess={handleSuccess}
+                    onerror={handleError}>
+                    
+                    <lightning-messages></lightning-messages>
+
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_small">
+                            <lightning-input-field field-name="Loan_Type__c" required></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_small">
+                            <lightning-input-field field-name="Loan_Amount__c" required></lightning-input-field>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_small">
+                            <lightning-input-field field-name="Tenure_Requested__c" required></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_small">
+                            <lightning-input-field field-name="Applicant_Monthly_Income__c" required></lightning-input-field>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_small">
+                            <lightning-input-field field-name="Existing_Monthly_Obligations__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_small">
+                            <lightning-input-field field-name="Number_Of_Dependants__c"></lightning-input-field>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_small">
+                            <lightning-input-field field-name="Credit_Score__c" required></lightning-input-field>
+                        </div>
+                    </div>
+
+                    <div class="slds-m-top_large slds-text-align_center">
+                        <lightning-button
+                            variant="brand"
+                            type="submit"
+                            label="Submit Loan Application"
+                            class="portal-btn">
+                        </lightning-button>
+                    </div>
+                </lightning-record-edit-form>
+            </div>
+        </template>
+    </div>
+</template>

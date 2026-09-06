@@ -1,0 +1,14 @@
+{
+  "required" : [ "loanApplicationId" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "loanApplicationId" : {
+      "title" : "loanApplicationId",
+      "description" : "Loan Application Number (e.g. LA-00078) or 18-character Salesforce Record ID",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

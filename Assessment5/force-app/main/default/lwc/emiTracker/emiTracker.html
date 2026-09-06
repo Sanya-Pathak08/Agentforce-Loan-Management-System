@@ -1,0 +1,45 @@
+<template>
+    <div class="tracker-container slds-p-around_medium">
+        <div class="slds-card slds-p-around_large main-card">
+            <!-- Header with Download Statement Button -->
+            <div class="header-bar slds-m-bottom_medium">
+                <div>
+                    <h2 class="slds-text-heading_medium font-bold text-bank-blue">EMI Schedule & Payment Tracker</h2>
+                    <p class="slds-text-body_small slds-text-color_weak">Track all upcoming, paid, and overdue monthly installments</p>
+                </div>
+                <div class="slds-m-left_auto">
+                    <button class="download-btn slds-button slds-button_neutral" onclick={handleDownloadStatement} disabled={isDownloading}>
+                        <lightning-icon icon-name="utility:download" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                        <template lwc:if={isDownloading}>Generating Statement...</template>
+                        <template lwc:else>Download Statement (PDF)</template>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <lightning-tabset variant="scoped" active-tab-value={activeTab} onselect={handleTabSelect}>
+                <lightning-tab label={allTabLabel} value="All"></lightning-tab>
+                <lightning-tab label={paidTabLabel} value="Paid"></lightning-tab>
+                <lightning-tab label={upcomingTabLabel} value="Upcoming"></lightning-tab>
+                <lightning-tab label={overdueTabLabel} value="Overdue"></lightning-tab>
+            </lightning-tabset>
+
+            <!-- EMI Records Data Table -->
+            <div class="slds-m-top_medium">
+                <template lwc:if={hasRecords}>
+                    <lightning-datatable
+                        key-field="id"
+                        data={filteredRecords}
+                        columns={columns}
+                        hide-checkbox-column>
+                    </lightning-datatable>
+                </template>
+                <template lwc:else>
+                    <div class="slds-text-align_center slds-p-around_large slds-theme_shade slds-m-top_small border-rounded">
+                        <p class="slds-text-body_regular slds-text-color_weak">No EMI schedule records found for this view.</p>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

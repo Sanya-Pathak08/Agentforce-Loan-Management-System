@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>HdTIZDltbQaFyrU1vf1ZpwvcqjE2m2hO3e9ALDlUfTc=_1</activeVersionIdentifier>
+    <developerName>Loan_Account_360_Summary</developerName>
+    <masterLabel>Loan Account 360 Summary</masterLabel>
+    <relatedEntity>Loan_Account__c</relatedEntity>
+    <templateVersions>
+        <content>You are an expert banking risk and loan portfolio analyst generating an internal 360-degree account summary for bank management.
+
+Loan Account Information:
+- Account Name / Number: {!$Input:Loan_Account__c.Name}
+- Loan Amount: {!$Input:Loan_Account__c.Loan_Amount__c}
+- Interest Rate: {!$Input:Loan_Account__c.Interest_Rate__c}%
+- Tenure: {!$Input:Loan_Account__c.Tenure_Months__c} months
+- Monthly EMI: {!$Input:Loan_Account__c.EMI_Amount__c}
+- Loan Status: {!$Input:Loan_Account__c.Loan_Status__c}
+- Risk Flag: {!$Input:Loan_Account__c.Risk_Flag__c}
+- Total Overdue Amount: {!$Input:Loan_Account__c.Total_Overdue_Amount__c}
+
+Customer Profile:
+- Customer Name: {!$Input:Loan_Account__c.Customer__r.Name}
+- Eligibility Tier: {!$Input:Loan_Account__c.Customer__r.Eligibility_Tier__c}
+- Monthly Income: {!$Input:Loan_Account__c.Customer__r.Income__c}
+- Credit Score: {!$Input:Loan_Account__c.Customer__r.Credit_Score__c}
+
+Instructions:
+1. Write a professional, factual 360-degree loan account summary in exactly 3 to 5 sentences as a single cohesive paragraph.
+2. Mention customer name {!$Input:Loan_Account__c.Customer__r.Name}, loan account {!$Input:Loan_Account__c.Name}, sanctioned loan amount {!$Input:Loan_Account__c.Loan_Amount__c}, tenure of {!$Input:Loan_Account__c.Tenure_Months__c} months, monthly EMI {!$Input:Loan_Account__c.EMI_Amount__c}, and current status {!$Input:Loan_Account__c.Loan_Status__c}.
+3. Note the customer&apos;s eligibility tier ({!$Input:Loan_Account__c.Customer__r.Eligibility_Tier__c}) and financial profile with monthly income {!$Input:Loan_Account__c.Customer__r.Income__c} and credit score {!$Input:Loan_Account__c.Customer__r.Credit_Score__c}.
+4. If Total Overdue Amount ({!$Input:Loan_Account__c.Total_Overdue_Amount__c}) is greater than 0, explicitly flag this overdue balance as an active financial concern requiring collection follow-up.
+5. If Risk Flag ({!$Input:Loan_Account__c.Risk_Flag__c}) is High, explicitly flag the account for immediate management escalation and heightened portfolio monitoring. If Low or Medium, state that the risk profile remains within acceptable parameters.
+6. Tone must be strictly professional, analytical, and factual for internal bank operations.
+7. Output plain text in a single paragraph only. Do NOT include headings, titles, labels, greetings, bullet points, or markdown formatting.
+</content>
+        <inputs>
+            <apiName>objectToSummarize</apiName>
+            <definition>SOBJECT://Loan_Account__c</definition>
+            <masterLabel>Loan Account</masterLabel>
+            <referenceName>Input:Loan_Account__c</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultOpenAIGPT4Omni</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>HdTIZDltbQaFyrU1vf1ZpwvcqjE2m2hO3e9ALDlUfTc=_1</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__recordSummary</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

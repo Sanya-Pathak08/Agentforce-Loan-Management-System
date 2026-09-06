@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ChoiceList xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Query Type choices for Pre-Chat</description>
+    <masterLabel>Query Type</masterLabel>
+    <choiceListValue>
+        <isDefaultValue>false</isDefaultValue>
+        <order>1</order>
+        <valueName>New_Loan</valueName>
+    </choiceListValue>
+    <choiceListValue>
+        <isDefaultValue>false</isDefaultValue>
+        <order>2</order>
+        <valueName>Existing_Loan</valueName>
+    </choiceListValue>
+    <choiceListValue>
+        <isDefaultValue>false</isDefaultValue>
+        <order>3</order>
+        <valueName>EMI_Query</valueName>
+    </choiceListValue>
+    <choiceListValue>
+        <isDefaultValue>true</isDefaultValue>
+        <order>4</order>
+        <valueName>Policy_Question</valueName>
+    </choiceListValue>
+</ChoiceList>

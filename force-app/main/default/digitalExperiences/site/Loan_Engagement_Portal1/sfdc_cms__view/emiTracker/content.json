@@ -1,0 +1,71 @@
+{
+  "type" : "sfdc_cms__view",
+  "title" : "EMI Tracker",
+  "contentBody" : {
+    "component" : {
+      "children" : [ {
+        "children" : [ {
+          "attributes" : {
+            "backgroundImageConfig" : "",
+            "backgroundImageOverlay" : "rgba(0,0,0,0)",
+            "componentSpacerSize" : "",
+            "dxpStyle" : { },
+            "layoutDirectionDesktop" : "row",
+            "layoutDirectionMobile" : "column",
+            "layoutDirectionTablet" : "column",
+            "maxContentWidth" : "",
+            "sectionColumnGutterWidth" : "",
+            "sectionConfig" : "{\"UUID\":\"a25a0b06-90f1-41d4-933a-e5ac29041b6b\",\"columns\":[{\"UUID\":\"22817e5d-19c5-4563-bc3c-7bf7ab1c312c\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
+            "sectionMinHeight" : "",
+            "sectionVerticalAlign" : "flex-start"
+          },
+          "children" : [ {
+            "children" : [ {
+              "attributes" : {
+                "dxpStyle" : { }
+              },
+              "definition" : "c:emiTracker",
+              "id" : "3acff70f-db57-4670-82fa-283190b3c766",
+              "type" : "component"
+            } ],
+            "id" : "22817e5d-19c5-4563-bc3c-7bf7ab1c312c",
+            "name" : "col1",
+            "title" : "Column 1",
+            "type" : "region"
+          } ],
+          "definition" : "community_layout:section",
+          "id" : "a25a0b06-90f1-41d4-933a-e5ac29041b6b",
+          "type" : "component"
+        } ],
+        "id" : "8d331d23-565d-46f2-825c-7841a5d374be",
+        "name" : "content",
+        "title" : "Content",
+        "type" : "region"
+      }, {
+        "children" : [ {
+          "attributes" : {
+            "customHeadTags" : "",
+            "description" : "",
+            "dxpStyle" : { },
+            "pageTitle" : "EMI Tracker",
+            "recordId" : "{!recordId}"
+          },
+          "definition" : "community_builder:seoAssistant",
+          "id" : "1ad45034-fded-49f1-8143-fc1447af7a2a",
+          "type" : "component"
+        } ],
+        "id" : "4c832296-9308-4ffb-85e2-ab9663ab58d7",
+        "name" : "sfdcHiddenRegion",
+        "title" : "sfdcHiddenRegion",
+        "type" : "region"
+      } ],
+      "definition" : "community_layout:sldsFlexibleLayout",
+      "id" : "00770fa8-92f8-497c-a30a-c49be38f36ad",
+      "type" : "component"
+    },
+    "dataProviders" : [ ],
+    "themeLayoutType" : "Inner",
+    "viewType" : "custom-emi-tracker"
+  },
+  "urlName" : "emi-tracker"
+}

@@ -1,0 +1,37 @@
+<template>
+    <div class="header-container" style="background-color: #1B3A6B; padding: 14px 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+        <div class="brand-wrapper" style="display: flex; align-items: center;">
+            <a href="./" class="brand-link" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+                <div class="brand-logo" style="background: #FFFFFF; color: #1B3A6B !important; font-weight: 800; font-size: 18px; padding: 6px 12px; border-radius: 6px; letter-spacing: 0.5px;">APEX</div>
+                <div class="brand-text" style="display: flex; flex-direction: column;">
+                    <span class="brand-title" style="color: #FFFFFF !important; font-size: 16px; font-weight: 700; line-height: 1.2;">Apex Capital</span>
+                    <span class="brand-subtitle" style="color: #90CAF9 !important; font-size: 11px; font-weight: 500; letter-spacing: 0.5px;">LOAN ENGAGEMENT PORTAL</span>
+                </div>
+            </a>
+        </div>
+        <nav class="nav-menu" style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+            <a href="./" class="nav-link" style="color: #FFFFFF !important; text-decoration: none; padding: 8px 12px; font-size: 13px; font-weight: 600; border-radius: 4px; display: inline-block;">Home</a>
+            <a href="./loan-application" class="nav-link" style="color: #FFFFFF !important; text-decoration: none; padding: 8px 12px; font-size: 13px; font-weight: 600; border-radius: 4px; display: inline-block;">Apply for a Loan</a>
+            <a href="./loan-account" class="nav-link" style="color: #FFFFFF !important; text-decoration: none; padding: 8px 12px; font-size: 13px; font-weight: 600; border-radius: 4px; display: inline-block;">My Loan Dashboard</a>
+            <a href="./emi-tracker" class="nav-link" style="color: #FFFFFF !important; text-decoration: none; padding: 8px 12px; font-size: 13px; font-weight: 600; border-radius: 4px; display: inline-block;">EMI Tracker</a>
+            <a href="./loan-faq" class="nav-link" style="color: #FFFFFF !important; text-decoration: none; padding: 8px 12px; font-size: 13px; font-weight: 600; border-radius: 4px; display: inline-block;">Loan Policies &amp; FAQs</a>
+            <a href="./loan-faq" class="nav-link" style="color: #FFFFFF !important; text-decoration: none; padding: 8px 12px; font-size: 13px; font-weight: 600; border-radius: 4px; display: inline-block;">Contact Support</a>
+
+            <!-- Logged In User View -->
+            <template if:true={isAuthenticated}>
+                <div class="user-greeting" style="display: inline-flex; align-items: center; gap: 6px; background-color: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); padding: 6px 14px; border-radius: 20px; margin-left: 8px;">
+                    <span class="user-avatar-icon" style="font-size: 14px;">👤</span>
+                    <span class="user-name-display" style="color: #FFFFFF !important; font-size: 13px; font-weight: 700; letter-spacing: 0.3px;">{displayName}</span>
+                </div>
+                <a href="./secur/logout.jsp" class="logout-link" style="color: #90CAF9 !important; text-decoration: none; padding: 8px 12px; font-size: 12px; font-weight: 500;" title="Log Out">Log Out</a>
+            </template>
+
+            <!-- Guest User View -->
+            <template if:true={isGuestUser}>
+                <a href="./login" class="login-btn" style="background-color: #E87722 !important; color: #FFFFFF !important; text-decoration: none; padding: 8px 18px; font-size: 13px; font-weight: 700; border-radius: 6px; margin-left: 8px; box-shadow: 0 2px 6px rgba(232, 119, 34, 0.4); display: inline-flex; align-items: center; gap: 6px;">
+                    <span>👤</span> Log In
+                </a>
+            </template>
+        </nav>
+    </div>
+</template>

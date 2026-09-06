@@ -1,0 +1,110 @@
+<template>
+    <div class="dashboard-container slds-p-around_medium">
+        <!-- Conditional Status Banner -->
+        <template lwc:if={loanData}>
+            <div class={statusBannerClass} role="alert">
+                <div class="slds-media slds-media_center slds-p-around_small">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name={statusIconName} size="small" variant="inverse"></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <p class="banner-text font-bold">{loanData.statusBannerMessage}</p>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- 60 / 40 Two-Column Grid -->
+        <div class="slds-grid slds-wrap slds-gutters slds-m-top_medium">
+            <!-- Left Column: 60% Width -->
+            <div class="slds-col slds-size_1-of-1 slds-large-size_7-of-12 slds-m-bottom_medium">
+                <div class="slds-card slds-p-around_large main-card">
+                    <div class="card-header slds-m-bottom_medium">
+                        <h2 class="slds-text-heading_medium font-bold text-bank-blue">Active Loan Details</h2>
+                        <span class="slds-badge slds-theme_default">{loanNumber}</span>
+                    </div>
+
+                    <template lwc:if={account}>
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                <span class="field-label">Loan Account Number:</span>
+                                <p class="field-value font-bold">{loanNumber}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                <span class="field-label">Borrower Name:</span>
+                                <p class="field-value font-bold">{customerName}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                <span class="field-label">Sanctioned Loan Amount:</span>
+                                <p class="field-value font-bold text-accent">₹{sanctionedAmount}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                <span class="field-label">Monthly EMI:</span>
+                                <p class="field-value font-bold">₹{emiAmount}</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                <span class="field-label">Interest Rate:</span>
+                                <p class="field-value">{interestRate}% p.a.</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                <span class="field-label">Tenure:</span>
+                                <p class="field-value">{tenure} Months</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                <span class="field-label">Loan Status:</span>
+                                <p class="field-value">
+                                    <span class={statusBadgeClass}>{account.Loan_Status__c}</span>
+                                </p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                                <span class="field-label">Default Risk Level:</span>
+                                <p class="field-value">
+                                    <span class={riskBadgeClass}>{defaultRisk}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </template>
+                    <template lwc:else>
+                        <div class="slds-text-align_center slds-p-around_large">
+                            <lightning-spinner alternative-text="Loading Loan Data" size="small"></lightning-spinner>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Right Column: 40% Width -->
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12 slds-m-bottom_medium">
+                <!-- Quick Stats Card -->
+                <div class="slds-card slds-p-around_large stats-card slds-m-bottom_medium">
+                    <h3 class="slds-text-heading_small font-bold text-bank-blue slds-m-bottom_medium">Quick Overview</h3>
+                    
+                    <div class="stat-item slds-p-around_small slds-m-bottom_small overdue-stat">
+                        <span class="stat-label">Total Overdue Amount</span>
+                        <p class="stat-value font-bold text-error">₹{overdueAmount}</p>
+                    </div>
+
+                    <div class="stat-item slds-p-around_small slds-m-bottom_small">
+                        <span class="stat-label">Next EMI Due Date</span>
+                        <p class="stat-value font-bold">{nextDueDate}</p>
+                    </div>
+
+                    <div class="stat-item slds-p-around_small slds-m-bottom_medium">
+                        <span class="stat-label">Remaining Tenure</span>
+                        <p class="stat-value font-bold">{remainingTenure} Months</p>
+                    </div>
+
+                    <!-- Chat with Loan Advisor CTA -->
+                    <div class="cta-box slds-text-align_center slds-p-top_small">
+                        <button class="chat-cta-btn slds-button slds-button_brand slds-size_1-of-1" onclick={handleOpenAgentChat}>
+                            <lightning-icon icon-name="utility:chat" size="x-small" variant="inverse" class="slds-m-right_x-small"></lightning-icon>
+                            Chat with Loan Advisor
+                        </button>
+                        <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">
+                            24/7 AI-powered assistance for EMI deferral, restructuring, or questions
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

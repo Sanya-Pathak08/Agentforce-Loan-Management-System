@@ -1,0 +1,79 @@
+<template>
+    <div class="prechat-container slds-p-around_medium">
+        <!-- Header -->
+        <div class="prechat-header slds-text-align_center slds-m-bottom_medium">
+            <div class="brand-avatar slds-m-bottom_x-small">
+                <lightning-icon icon-name="utility:agent" size="medium" variant="inverse" class="avatar-icon"></lightning-icon>
+            </div>
+            <h2 class="slds-text-heading_medium font-bold text-bank-blue">Loan Advisor — AI Powered</h2>
+            <p class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">
+                Please provide your details so our AI Loan Advisor can assist you.
+            </p>
+        </div>
+
+        <!-- Form Fields -->
+        <div class="prechat-form slds-form slds-form_stacked">
+            <!-- First Name -->
+            <lightning-input 
+                label="First Name" 
+                name="FirstName" 
+                value={firstName} 
+                required 
+                onchange={handleInputChange} 
+                class="slds-m-bottom_x-small form-input"
+                message-when-value-missing="First Name is required">
+            </lightning-input>
+
+            <!-- Last Name -->
+            <lightning-input 
+                label="Last Name" 
+                name="LastName" 
+                value={lastName} 
+                required 
+                onchange={handleInputChange} 
+                class="slds-m-bottom_x-small form-input"
+                message-when-value-missing="Last Name is required">
+            </lightning-input>
+
+            <!-- Email -->
+            <lightning-input 
+                label="Email" 
+                name="Email" 
+                type="email" 
+                value={email} 
+                required 
+                onchange={handleInputChange} 
+                class="slds-m-bottom_x-small form-input"
+                message-when-value-missing="Email is required"
+                message-when-type-mismatch="Please enter a valid email address">
+            </lightning-input>
+
+            <!-- Loan Account Number (Optional) -->
+            <lightning-input 
+                label="Loan Account Number (if existing customer)" 
+                name="LoanAccountNumber" 
+                value={loanAccountNumber} 
+                placeholder="e.g. LA-0048" 
+                onchange={handleInputChange} 
+                class="slds-m-bottom_x-small form-input">
+            </lightning-input>
+
+            <!-- Query Type (Picklist) -->
+            <lightning-combobox 
+                label="Query Type" 
+                name="QueryType" 
+                value={queryType} 
+                options={queryTypeOptions} 
+                required 
+                onchange={handleInputChange} 
+                class="slds-m-bottom_medium form-input"
+                message-when-value-missing="Please select a query type">
+            </lightning-combobox>
+
+            <!-- Submit Button -->
+            <button class="slds-button slds-button_brand submit-btn slds-size_1-of-1" onclick={handleStartConversation}>
+                Start Conversation
+            </button>
+        </div>
+    </div>
+</template>

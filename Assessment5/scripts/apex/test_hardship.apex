@@ -1,0 +1,1 @@
+Map<String, Object> inputs = new Map<String, Object>{'loanAccountId' => 'LA-009'}; Flow.Interview.Send_Loan_Hardship_Message flowInterview = new Flow.Interview.Send_Loan_Hardship_Message(inputs); flowInterview.start(); String msg = (String) flowInterview.getVariableValue('hardshipMessage'); System.debug('=== HARDSHIP MESSAGE ===: ' + msg);

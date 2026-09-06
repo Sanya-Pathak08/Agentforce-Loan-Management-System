@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Document_Type__c</fullName>
+    <label>Document Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Personal Loan Policy</fullName>
+                <default>false</default>
+                <label>Personal Loan Policy</label>
+            </value>
+            <value>
+                <fullName>Home Loan Eligibility Guide</fullName>
+                <default>false</default>
+                <label>Home Loan Eligibility Guide</label>
+            </value>
+            <value>
+                <fullName>EMI Payment Rules</fullName>
+                <default>false</default>
+                <label>EMI Payment Rules</label>
+            </value>
+            <value>
+                <fullName>Loan Agreement</fullName>
+                <default>false</default>
+                <label>Loan Agreement</label>
+            </value>
+            <value>
+                <fullName>Identity Proof</fullName>
+                <default>false</default>
+                <label>Identity Proof</label>
+            </value>
+            <value>
+                <fullName>Income Proof</fullName>
+                <default>false</default>
+                <label>Income Proof</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
